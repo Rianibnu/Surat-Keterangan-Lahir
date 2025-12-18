@@ -1,0 +1,40 @@
+// Ini adalah backup dari sistem role management yang telah dibuat
+// Kita akan kembalikan ke kondisi asli setelah ini
+
+Sistem Role Management yang telah dibuat:
+
+1. Model:
+- App\Models\Role.php
+- Perubahan pada App\Models\User.php (relasi dan method)
+
+2. Migration:
+- 2025_08_15_000000_create_roles_table.php
+- 2025_08_15_000001_add_role_id_to_users_table.php
+
+3. Middleware:
+- App\Http\Middleware\RoleMiddleware.php
+- App\Http\Middleware\RoleOrMiddleware.php
+
+4. Middleware Registration:
+- bootstrap/app.php (tambahan middleware alias)
+
+5. Controller:
+- App\Http\Controllers\UsersController.php
+- App\Http\Controllers\RolesController.php
+
+6. Frontend Components:
+- resources/js/components/NavMain.vue (role filtering)
+- resources/js/components/AppSidebar.vue (nav items dengan roles)
+
+7. Routes:
+- routes/web.php (tambahan user dan role management routes)
+
+8. Seeder:
+- database/seeders/UserSeeder.php
+
+9. Frontend Pages:
+- resources/js/pages/users/*
+- resources/js/pages/roles/*
+
+10. Type Definition:
+- resources/js/types/index.d.ts (NavItem dengan roles)
