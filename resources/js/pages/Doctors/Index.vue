@@ -3,6 +3,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 
 import { 
     Card,
@@ -32,8 +33,10 @@ import {
 import { ref, watch } from 'vue';
 import { Badge } from '@/components/ui/badge';
 import { usePermissions } from '@/composables/usePermissions';
+import { useRoute } from '@/composables/useRoute';
 
 const { can } = usePermissions();
+const route = useRoute();
 
 const props = defineProps<{
     doctors: {
@@ -52,6 +55,10 @@ const props = defineProps<{
 
 const search = ref(props.filters.search || '');
 
+// Delete confirmation dialog state
+const showDeleteDialog = ref(false);
+const doctorToDelete = ref<{ id: number; name: string } | null>(null);
+
 watch(search, (value) => {
     router.get(
         route('doctors.index'),
@@ -60,9 +67,14 @@ watch(search, (value) => {
     );
 });
 
-const deleteDoctor = (id: number) => {
-    if (confirm('Apakah Anda yakin ingin menghapus data dokter ini?')) {
-        router.delete(route('doctors.destroy', id));
+const openDeleteDialog = (doctor: { id: number; name: string }) => {
+    doctorToDelete.value = doctor;
+    showDeleteDialog.value = true;
+};
+
+const confirmDelete = () => {
+    if (doctorToDelete.value) {
+        router.delete(route('doctors.destroy', doctorToDelete.value.id));
     }
 };
 </script>
@@ -192,7 +204,7 @@ const deleteDoctor = (id: number) => {
                                                         <Pencil class="h-3.5 w-3.5" /> Edit
                                                     </Link>
                                                 </DropdownMenuItem>
-                                                <DropdownMenuItem v-if="can('doctors.delete')" @click="deleteDoctor(doctor.id)" class="cursor-pointer flex items-center gap-2 text-red-600 focus:text-red-700 focus:bg-red-50 dark:focus:bg-red-900/20">
+                                                <DropdownMenuItem v-if="can('doctors.delete')" @click="openDeleteDialog(doctor)" class="cursor-pointer flex items-center gap-2 text-red-600 focus:text-red-700 focus:bg-red-50 dark:focus:bg-red-900/20">
                                                     <Trash2 class="h-3.5 w-3.5" /> Hapus
                                                 </DropdownMenuItem>
                                             </DropdownMenuContent>
@@ -212,5 +224,18 @@ const deleteDoctor = (id: number) => {
                 </CardFooter>
             </Card>
         </div>
+        
+        <!-- Delete Confirmation Dialog -->
+        <ConfirmDialog
+            v-model="showDeleteDialog"
+            title="Hapus Data Dokter"
+            :message="`Apakah Anda yakin ingin menghapus data dokter '${doctorToDelete?.name || ''}'? Tindakan ini tidak dapat dibatalkan.`"
+            confirm-text="Ya, Hapus"
+            cancel-text="Batal"
+            variant="danger"
+            icon="trash"
+            @confirm="confirmDelete"
+        />
     </AppLayout>
 </template>
+

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Doctor;
 use Illuminate\Database\Seeder;
 
 class DoctorSeeder extends Seeder
@@ -12,28 +12,46 @@ class DoctorSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Doctor::insert([
+        $doctors = [
             [
-                'name' => 'Dr. Budi Santoso, Sp.OG',
-                'license_no' => 'SIP.123.456.789',
+                'name' => 'dr. Ahmad Rasyid, Sp.OG',
+                'license_no' => 'SIP-OG/2023/12345',
                 'hospital' => 'RS Unggul Karsa Medika',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'signature_path' => null,
             ],
             [
-                'name' => 'Dr. Siti Aminah, Sp.A',
-                'license_no' => 'SIP.987.654.321',
+                'name' => 'dr. Budi Santoso, Sp.OG',
+                'license_no' => 'SIP-OG/2023/12346',
                 'hospital' => 'RS Unggul Karsa Medika',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'signature_path' => null,
             ],
             [
-                'name' => 'Dr. Andi Pratama, Sp.OG',
-                'license_no' => 'SIP.456.123.789',
+                'name' => 'dr. Citra Dewi, Sp.OG',
+                'license_no' => 'SIP-OG/2024/23456',
                 'hospital' => 'RS Unggul Karsa Medika',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'signature_path' => null,
             ],
-        ]);
+            [
+                'name' => 'dr. Diana Putri, Sp.OG',
+                'license_no' => 'SIP-OG/2024/23457',
+                'hospital' => 'RS Unggul Karsa Medika',
+                'signature_path' => null,
+            ],
+            [
+                'name' => 'dr. Eko Prasetyo, Sp.OG(K)',
+                'license_no' => 'SIP-OG/2022/34567',
+                'hospital' => 'RS Unggul Karsa Medika',
+                'signature_path' => null,
+            ],
+        ];
+
+        foreach ($doctors as $doctor) {
+            Doctor::firstOrCreate(
+                ['license_no' => $doctor['license_no']],
+                $doctor
+            );
+        }
+
+        $this->command->info('Doctors seeded successfully! Total: ' . count($doctors) . ' doctors');
     }
 }

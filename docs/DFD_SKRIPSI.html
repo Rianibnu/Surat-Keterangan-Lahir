@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Flow Diagram - Sistem Informasi SKL</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', serif;
+            font-size: 12pt;
+            line-height: 1.6;
+            padding: 2cm;
+            background: #fff;
+            color: #333;
+            max-width: 21cm;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 16pt;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: 14pt;
+            margin: 25px 0 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            font-size: 12pt;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 12pt;
+            margin-bottom: 30px;
+        }
+
+        .diagram-container {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .diagram {
+            font-family: 'Courier New', monospace;
+            font-size: 10pt;
+            white-space: pre;
+            line-height: 1.3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 11pt;
+        }
+
+        th,
+        td {
+            border: 1px solid #333;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background: #e9ecef;
+            font-weight: bold;
+        }
+
+        .entity {
+            background: #e3f2fd;
+            padding: 10px 15px;
+            border: 2px solid #1976d2;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 5px;
+            font-weight: bold;
+        }
+
+        .process {
+            background: #fff3e0;
+            padding: 10px 15px;
+            border: 2px solid #f57c00;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .datastore {
+            background: #e8f5e9;
+            padding: 10px 15px;
+            border-left: 4px solid #388e3c;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+            padding: 15px;
+            background: #fafafa;
+            border-radius: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .arrow {
+            font-size: 20px;
+            color: #666;
+        }
+
+        hr {
+            margin: 30px 0;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+
+        @media print {
+            body {
+                padding: 1cm;
+            }
+
+            .diagram-container {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>DATA FLOW DIAGRAM (DFD)</h1>
+    <p class="subtitle">Sistem Informasi Surat Keterangan Lahir (SKL) Berbasis Web pada Rumah Sakit</p>
+
+    <hr>
+
+    <h2>1. Context Diagram (DFD Level 0)</h2>
+    <p>Context Diagram menunjukkan gambaran umum sistem dan interaksinya dengan entitas eksternal.</p>
+
+    <div class="diagram-container">
+        <div class="diagram">
+            ┌─────────────────────────────────┐
+            │ SUPER ADMIN │
+            └─────────────┬───────────────────┘
+            Data Konfigurasi │ Laporan Aktivitas
+            Role & Permission │ Audit Trail
+            ▼
+            ┌─────────────────────────┐ ┌───────────────────────────────────────┐ ┌─────────────────────────┐
+            │ BIDAN │ │ │ │ ADMIN │
+            └───────────┬─────────────┘ │ SISTEM INFORMASI │ └───────────┬─────────────┘
+            │ │ │ │
+            │ Data Kelahiran │ SURAT KETERANGAN │ Data Pengguna, │
+            │ (Bayi, Ibu, Ayah) │ │ Data Dokter │
+            ├────────────────────────────▶│ LAHIR (SKL) │◀─────────────────────────┤
+            │ │ │ │
+            │ Dokumen SKL (PDF) │ │ Laporan, Dashboard │
+            │◀────────────────────────────│ │─────────────────────────▶│
+            │ └───────────────────┬───────────────────┘ │
+            │
+            ▼
+            ┌───────────────────────────────────────┐
+            │ PUBLIK (PIHAK KETIGA) │
+            └───────────────────────────────────────┘
+            │
+            UUID/QR Code │ Hasil Verifikasi
+            Verifikasi │ (Valid/Invalid)
+        </div>
+    </div>
+
+    <h3>Keterangan Entitas Eksternal:</h3>
+    <table>
+        <tr>
+            <th>Entitas</th>
+            <th>Deskripsi</th>
+        </tr>
+        <tr>
+            <td><strong>Bidan</strong></td>
+            <td>Petugas medis yang menginput data kelahiran dan mencetak dokumen SKL</td>
+        </tr>
+        <tr>
+            <td><strong>Admin</strong></td>
+            <td>Administrator sistem yang mengelola pengguna, dokter, dan memantau aktivitas</td>
+        </tr>
+        <tr>
+            <td><strong>Super Admin</strong></td>
+            <td>Administrator dengan akses penuh untuk konfigurasi sistem dan manajemen role</td>
+        </tr>
+        <tr>
+            <td><strong>Publik</strong></td>
+            <td>Pihak eksternal yang memverifikasi keaslian dokumen SKL melalui QR Code</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <h2>2. DFD Level 1</h2>
+    <p>DFD Level 1 menunjukkan dekomposisi sistem menjadi proses-proses utama.</p>
+
+    <div class="diagram-container">
+        <div class="diagram">
+            ┌─────────────┐
+            │ BIDAN │
+            └──────┬──────┘
+            │ Email, Password
+            ├────────────────────────────▶┌─────────────────────────┐
+            │ │ 1.0 AUTENTIKASI │◀────────▶ D1 USERS
+            │◀───────────────────────────│ LOGIN │
+            │ Session Token └─────────────────────────┘
+            │
+            │ Data Kelahiran
+            ├────────────────────────────▶┌─────────────────────────┐
+            │ │ 2.0 MANAJEMEN │────────▶ D2 BIRTH_RECORDS
+            │◀───────────────────────────│ DATA KELAHIRAN │◀─────── D3 DOCTORS
+            │ Status Simpan └──────────┬──────────────┘
+            │ │ Generate SKL
+            │ ▼
+            │ ┌──────────────────────────┐
+            │ │ D4 SKLS │
+            │ └──────────────────────────┘
+            │ Request Cetak
+            ├────────────────────────────▶┌─────────────────────────┐
+            │ │ 3.0 GENERATE │◀─────── D4 SKLS
+            │◀───────────────────────────│ DOKUMEN SKL │◀─────── D2 BIRTH_RECORDS
+            │ Dokumen PDF + QR Code └─────────────────────────┘
+
+            ┌─────────────┐
+            │ ADMIN │
+            └──────┬──────┘
+            │ Data Pengguna
+            ├────────────────────────────▶┌─────────────────────────┐
+            │ │ 4.0 MANAJEMEN │────────▶ D1 USERS
+            │◀───────────────────────────│ PENGGUNA │◀─────── D5 ROLES
+            │ Daftar Pengguna └─────────────────────────┘
+            │
+            │ Data Dokter
+            ├────────────────────────────▶┌─────────────────────────┐
+            │ │ 5.0 MANAJEMEN │────────▶ D3 DOCTORS
+            │◀───────────────────────────│ DOKTER │
+            │ Daftar Dokter └─────────────────────────┘
+            │
+            │ Request Dashboard
+            ├────────────────────────────▶┌─────────────────────────┐
+            │ │ 6.0 DASHBOARD & │◀─────── D2 BIRTH_RECORDS
+            │◀───────────────────────────│ LAPORAN │◀─────── D4 SKLS
+            │ Data Statistik └─────────────────────────┘
+            │
+            │ Request Activity Log
+            ├────────────────────────────▶┌─────────────────────────┐
+            │ │ 7.0 AUDIT TRAIL │◀─────── D6 ACTIVITY_LOG
+            │◀───────────────────────────│ (ACTIVITY LOG) │
+            │ Daftar Aktivitas └─────────────────────────┘
+
+            ┌─────────────┐
+            │ PUBLIK │
+            └──────┬──────┘
+            │ UUID / QR Code
+            ├────────────────────────────▶┌─────────────────────────┐
+            │ │ 8.0 VERIFIKASI │◀─────── D4 SKLS
+            │◀───────────────────────────│ DOKUMEN SKL │◀─────── D2 BIRTH_RECORDS
+            │ Status Valid/Invalid └─────────────────────────┘
+        </div>
+    </div>
+
+    <h3>Keterangan Proses:</h3>
+    <table>
+        <tr>
+            <th>No.</th>
+            <th>Nama Proses</th>
+            <th>Deskripsi</th>
+        </tr>
+        <tr>
+            <td>1.0</td>
+            <td>Autentikasi Login</td>
+            <td>Verifikasi identitas pengguna melalui email dan password</td>
+        </tr>
+        <tr>
+            <td>2.0</td>
+            <td>Manajemen Data Kelahiran</td>
+            <td>CRUD data kelahiran bayi (Create, Read, Update, Delete)</td>
+        </tr>
+        <tr>
+            <td>3.0</td>
+            <td>Generate Dokumen SKL</td>
+            <td>Pembuatan dokumen PDF SKL dengan QR Code verifikasi</td>
+        </tr>
+        <tr>
+            <td>4.0</td>
+            <td>Manajemen Pengguna</td>
+            <td>Pengelolaan data pengguna sistem dan assignment role</td>
+        </tr>
+        <tr>
+            <td>5.0</td>
+            <td>Manajemen Dokter</td>
+            <td>Pengelolaan data dokter penanggung jawab</td>
+        </tr>
+        <tr>
+            <td>6.0</td>
+            <td>Dashboard & Laporan</td>
+            <td>Menampilkan statistik dan ringkasan data sistem</td>
+        </tr>
+        <tr>
+            <td>7.0</td>
+            <td>Audit Trail</td>
+            <td>Pencatatan dan pemantauan aktivitas pengguna</td>
+        </tr>
+        <tr>
+            <td>8.0</td>
+            <td>Verifikasi Dokumen SKL</td>
+            <td>Verifikasi keaslian dokumen SKL melalui QR Code</td>
+        </tr>
+    </table>
+
+    <h3>Keterangan Data Store:</h3>
+    <table>
+        <tr>
+            <th>Kode</th>
+            <th>Nama</th>
+            <th>Deskripsi</th>
+        </tr>
+        <tr>
+            <td>D1</td>
+            <td>USERS</td>
+            <td>Menyimpan data pengguna sistem (bidan, admin, super admin)</td>
+        </tr>
+        <tr>
+            <td>D2</td>
+            <td>BIRTH_RECORDS</td>
+            <td>Menyimpan data kelahiran (bayi, ibu, ayah)</td>
+        </tr>
+        <tr>
+            <td>D3</td>
+            <td>DOCTORS</td>
+            <td>Menyimpan data dokter penanggung jawab</td>
+        </tr>
+        <tr>
+            <td>D4</td>
+            <td>SKLS</td>
+            <td>Menyimpan data Surat Keterangan Lahir</td>
+        </tr>
+        <tr>
+            <td>D5</td>
+            <td>ROLES</td>
+            <td>Menyimpan data role dan permission</td>
+        </tr>
+        <tr>
+            <td>D6</td>
+            <td>ACTIVITY_LOG</td>
+            <td>Menyimpan catatan aktivitas pengguna</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <h2>3. DFD Level 2 - Proses 2.0 Manajemen Data Kelahiran</h2>
+
+    <div class="diagram-container">
+        <div class="diagram">
+            ┌─────────────┐
+            │ BIDAN │
+            └──────┬──────┘
+            │ Request Tambah
+            ├─────────────────────────▶┌──────────────────────┐
+            │ │ 2.1 CEK HAK AKSES │◀────────▶ D5 ROLES
+            │◀────────────────────────│ (AUTHORIZATION) │
+            │ Status Akses └──────────┬───────────┘
+            │ │ Access Granted
+            │ ▼
+            │ Daftar Dokter ┌──────────────────────┐
+            │◀────────────────────────│ 2.2 LOAD DATA │◀────────▶ D3 DOCTORS
+            │ │ PENDUKUNG │
+            │ └──────────┬───────────┘
+            │ │ Form Ready
+            │ Data Kelahiran ▼
+            ├─────────────────────────▶┌──────────────────────┐
+            │ │ 2.3 VALIDASI │
+            │◀────────────────────────│ INPUT DATA │
+            │ Pesan Error └──────────┬───────────┘
+            │ │ Data Valid
+            │ ▼
+            │ ┌──────────────────────┐
+            │ │ 2.4 SIMPAN DATA │─────────▶ D2 BIRTH_RECORDS
+            │ │ KELAHIRAN │
+            │ └──────────┬───────────┘
+            │ │ Birth Record ID
+            │ ▼
+            │ ┌──────────────────────┐
+            │ │ 2.5 GENERATE │─────────▶ D4 SKLS
+            │ │ NOMOR SKL & UUID │
+            │ └──────────┬───────────┘
+            │ │ SKL Created
+            │ ▼
+            │ Status Sukses ┌──────────────────────┐
+            │◀────────────────────────│ 2.6 LOG AKTIVITAS │─────────▶ D6 ACTIVITY_LOG
+            │ │ & RESPONSE │
+            │ └──────────────────────┘
+        </div>
+    </div>
+
+    <hr>
+
+    <h2>4. DFD Level 2 - Proses 3.0 Generate Dokumen SKL</h2>
+
+    <div class="diagram-container">
+        <div class="diagram">
+            ┌─────────────┐
+            │ BIDAN │
+            └──────┬──────┘
+            │ Request Cetak (SKL ID)
+            ├─────────────────────────▶┌──────────────────────┐
+            │ │ 3.1 AMBIL DATA SKL │◀────────▶ D4 SKLS
+            │ │ & BIRTH RECORD │◀────────▶ D2 BIRTH_RECORDS
+            │ └──────────┬───────────┘
+            │ │ Data SKL + Birth Record
+            │ ▼
+            │ ┌──────────────────────┐
+            │ │ 3.2 AMBIL DATA │◀────────▶ D3 DOCTORS
+            │ │ DOKTER & TTD │
+            │ └──────────┬───────────┘
+            │ │ Complete Data
+            │ ▼
+            │ ┌──────────────────────┐
+            │ │ 3.3 GENERATE │
+            │ │ QR CODE │
+            │ │ (Verification URL) │
+            │ └──────────┬───────────┘
+            │ │ QR Code Image
+            │ ▼
+            │ ┌──────────────────────┐
+            │ │ 3.4 RENDER PDF │
+            │ │ TEMPLATE (DomPDF) │
+            │ └──────────┬───────────┘
+            │ │ PDF Binary
+            │ ▼
+            │ Dokumen PDF SKL ┌──────────────────────┐
+            │◀────────────────────────│ 3.5 LOG AKTIVITAS │─────────▶ D6 ACTIVITY_LOG
+            │ │ & KIRIM PDF │
+            │ └──────────────────────┘
+        </div>
+    </div>
+
+    <hr>
+
+    <h2>5. DFD Level 2 - Proses 8.0 Verifikasi Dokumen SKL</h2>
+
+    <div class="diagram-container">
+        <div class="diagram">
+            ┌─────────────┐
+            │ PUBLIK │
+            └──────┬──────┘
+            │ UUID (dari QR Code)
+            ├─────────────────────────▶┌──────────────────────┐
+            │ │ 8.1 VALIDASI │
+            │◀────────────────────────│ FORMAT UUID │
+            │ Error Format └──────────┬───────────┘
+            │ │ UUID Valid
+            │ ▼
+            │ ┌──────────────────────┐
+            │ │ 8.2 CARI DATA SKL │◀────────▶ D4 SKLS
+            │◀────────────────────────│ BY UUID │
+            │ SKL Tidak Ditemukan └──────────┬───────────┘
+            │ │ SKL Found
+            │ ▼
+            │ ┌──────────────────────┐
+            │ │ 8.3 AMBIL DATA │◀────────▶ D2 BIRTH_RECORDS
+            │ │ KELAHIRAN │◀────────▶ D3 DOCTORS
+            │ └──────────┬───────────┘
+            │ │ Complete Data
+            │ ▼
+            │ ┌──────────────────────┐
+            │ │ 8.4 VALIDASI │
+            │◀────────────────────────│ KEASLIAN DOKUMEN │
+            │ Status Invalid └──────────┬───────────┘
+            │ │ Valid Document
+            │ ▼
+            │ Status Valid + Data ┌──────────────────────┐
+            │◀────────────────────────│ 8.5 TAMPILKAN │
+            │ │ HASIL VERIFIKASI │
+            │ └──────────────────────┘
+        </div>
+    </div>
+
+    <hr>
+
+    <h2>6. Notasi DFD (Gane-Sarson)</h2>
+
+    <div class="legend">
+        <div class="legend-item">
+            <div class="entity">ENTITAS</div>
+            <span>= Entitas Eksternal (kotak)</span>
+        </div>
+        <div class="legend-item">
+            <div class="process">1.0 PROSES</div>
+            <span>= Proses (kotak sudut bulat)</span>
+        </div>
+        <div class="legend-item">
+            <div class="datastore">D1 DATA STORE</div>
+            <span>= Penyimpanan Data</span>
+        </div>
+        <div class="legend-item">
+            <span class="arrow">────▶</span>
+            <span>= Aliran Data</span>
+        </div>
+    </div>
+
+    <hr>
+    <p style="text-align: center; font-style: italic; margin-top: 30px;">
+        Dokumen ini dibuat sebagai bagian dari metodologi penelitian untuk<br>
+        Sistem Informasi Surat Keterangan Lahir (SKL) Berbasis Web pada Rumah Sakit.
+    </p>
+
+</body>
+
+</html>

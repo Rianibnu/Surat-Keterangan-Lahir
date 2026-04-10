@@ -166,8 +166,43 @@ class DoctorController extends Controller
      */
     public function destroy(Doctor $doctor)
     {
-        $doctor->delete();
+        try {
+            // Check if doctor has related birth records
+            $birthRecordCount = $doctor->birthRecords()->count();
+            
+            if ($birthRecordCount > 0) {
+                // Option 1: Prevent deletion
+                // return redirect()->route('doctors.index')
+                //     ->with('error', "Tidak dapat menghapus dokter ini karena masih memiliki {$birthRecordCount} data kelahiran terkait.");
+                
+                // Option 2: Allow deletion with cascade (current behavior)
+                // Birth records will be deleted due to ON DELETE CASCADE in migration
+            }
 
-        return redirect()->route('doctors.index')->with('success', 'Data dokter berhasil dihapus.');
+            // Delete signature file if exists
+            if ($doctor->signature_path && Storage::disk('public')->exists($doctor->signature_path)) {
+                Storage::disk('public')->delete($doctor->signature_path);
+            }
+
+            $doctorName = $doctor->name;
+            $doctor->delete();
+
+            return redirect()->route('doctors.index')
+                ->with('success', "Data dokter '{$doctorName}' berhasil dihapus.");
+                
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Handle foreign key constraint violation
+            if (str_contains($e->getMessage(), 'foreign key constraint')) {
+                return redirect()->route('doctors.index')
+                    ->with('error', 'Tidak dapat menghapus dokter ini karena masih terkait dengan data lain.');
+            }
+            
+            return redirect()->route('doctors.index')
+                ->with('error', 'Gagal menghapus dokter: ' . $e->getMessage());
+                
+        } catch (\Exception $e) {
+            return redirect()->route('doctors.index')
+                ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 }

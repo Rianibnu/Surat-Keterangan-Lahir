@@ -128,6 +128,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['can:activity-log.view'])->group(function () {
         Route::get('activity-logs', [ActivityLogController::class, 'index'])->name('activity-logs.index');
         Route::get('activity-logs/{activity}', [ActivityLogController::class, 'show'])->name('activity-logs.show');
+        Route::post('activity-logs/{activity}/restore', [ActivityLogController::class, 'restore'])->name('activity-logs.restore');
     });
 
     // ============================================
@@ -141,6 +142,53 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('users/{user}', [UserController::class, 'update'])->middleware('can:users.edit')->name('users.update');
         Route::delete('users/{user}', [UserController::class, 'destroy'])->middleware('can:users.delete')->name('users.destroy');
     });
+
+    // ============================================
+    // TERAMEDIK SIMRS INTEGRATION
+    // ============================================
+    // Routes ini hanya aktif jika TERAMEDIK_ENABLED=true di .env
+    // Set true setelah dapat API credentials dari Teramedik
+    if (config('teramedik.enabled')) {
+        Route::prefix('teramedik')->name('teramedik.')->group(function () {
+            // Health check
+            Route::get('health', [\App\Http\Controllers\TeramedikController::class, 'healthCheck'])
+                ->name('health');
+
+            // Patient lookup
+            Route::get('patients/search', [\App\Http\Controllers\TeramedikController::class, 'searchPatients'])
+                ->name('patients.search');
+            Route::get('patients/by-rm', [\App\Http\Controllers\TeramedikController::class, 'getPatientByRM'])
+                ->name('patients.by-rm');
+            Route::get('patients/by-nik', [\App\Http\Controllers\TeramedikController::class, 'getPatientByNIK'])
+                ->name('patients.by-nik');
+
+            // Form autofill helpers
+            Route::get('mother-data', [\App\Http\Controllers\TeramedikController::class, 'getMotherData'])
+                ->name('mother-data');
+            Route::get('father-data', [\App\Http\Controllers\TeramedikController::class, 'getFatherData'])
+                ->name('father-data');
+
+            // Doctor sync
+            Route::get('doctors', [\App\Http\Controllers\TeramedikController::class, 'getDoctors'])
+                ->name('doctors');
+            Route::post('doctors/sync', [\App\Http\Controllers\TeramedikController::class, 'syncDoctors'])
+                ->middleware('can:doctors.create')
+                ->name('doctors.sync');
+
+            // Active encounters (for maternity ward)
+            Route::get('encounters/maternity', [\App\Http\Controllers\TeramedikController::class, 'getActiveMaternityEncounters'])
+                ->name('encounters.maternity');
+
+            // Birth record sync
+            Route::post('birth-records/{birthRecord}/push', [\App\Http\Controllers\TeramedikController::class, 'pushBirthRecord'])
+                ->middleware('can:birth-records.create')
+                ->name('birth-records.push');
+            Route::get('birth-records/{birthRecord}/sync-status', [\App\Http\Controllers\TeramedikController::class, 'getSyncStatus'])
+                ->name('birth-records.sync-status');
+            Route::get('birth-records/pending', [\App\Http\Controllers\TeramedikController::class, 'getPendingSync'])
+                ->name('birth-records.pending');
+        });
+    }
 });
 
 require __DIR__.'/settings.php';

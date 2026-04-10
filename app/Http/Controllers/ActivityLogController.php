@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Spatie\Activitylog\Models\Activity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ActivityLogController extends Controller
 {
@@ -78,8 +79,120 @@ class ActivityLogController extends Controller
     {
         $activity->load('causer', 'subject');
 
+        // Check if this is a deleted record that can be restored
+        $canRestore = false;
+        if ($activity->event === 'deleted' && $activity->subject_type && isset($activity->properties['old'])) {
+            $canRestore = true;
+        }
+
         return Inertia::render('ActivityLog/Show', [
             'activity' => $activity,
+            'canRestore' => $canRestore,
         ]);
     }
+
+    /**
+     * Restore a deleted record from activity log.
+     */
+    public function restore(Activity $activity)
+    {
+        // Validate this is a delete event
+        if ($activity->event !== 'deleted') {
+            return redirect()->back()->with('error', 'Hanya data yang dihapus yang dapat dipulihkan.');
+        }
+
+        // Get the old data from properties
+        $oldData = $activity->properties['old'] ?? null;
+        
+        if (!$oldData) {
+            return redirect()->back()->with('error', 'Data lama tidak ditemukan di log aktivitas.');
+        }
+
+        // Get the model class
+        $modelClass = $activity->subject_type;
+        
+        if (!$modelClass || !class_exists($modelClass)) {
+            return redirect()->back()->with('error', 'Model tidak ditemukan: ' . $modelClass);
+        }
+
+        try {
+            DB::beginTransaction();
+
+            // Remove timestamps and id from old data for recreation
+            $dataToRestore = collect($oldData)->except(['id', 'created_at', 'updated_at'])->toArray();
+            
+            // Handle foreign keys - check if related records still exist
+            $foreignKeyErrors = $this->validateForeignKeys($modelClass, $dataToRestore);
+            if (!empty($foreignKeyErrors)) {
+                return redirect()->back()->with('error', 'Tidak dapat memulihkan: ' . implode(', ', $foreignKeyErrors));
+            }
+
+            // Create new record with old data
+            $restoredRecord = $modelClass::create($dataToRestore);
+
+            // Log the restoration
+            activity()
+                ->performedOn($restoredRecord)
+                ->causedBy(auth()->user())
+                ->withProperties([
+                    'restored_from_activity_id' => $activity->id,
+                    'attributes' => $restoredRecord->toArray(),
+                ])
+                ->log('Data dipulihkan dari Activity Log #' . $activity->id);
+
+            DB::commit();
+
+            // Determine redirect URL based on model type
+            $redirectUrl = $this->getRedirectUrl($modelClass, $restoredRecord);
+
+            return redirect($redirectUrl)->with('success', 'Data berhasil dipulihkan!');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            
+            return redirect()->back()->with('error', 'Gagal memulihkan data: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Validate foreign key constraints before restoring.
+     */
+    private function validateForeignKeys(string $modelClass, array $data): array
+    {
+        $errors = [];
+
+        // Check doctor_id for BirthRecord
+        if ($modelClass === 'App\Models\BirthRecord' && isset($data['doctor_id'])) {
+            $doctorExists = \App\Models\Doctor::find($data['doctor_id']);
+            if (!$doctorExists) {
+                $errors[] = 'Dokter terkait sudah dihapus (ID: ' . $data['doctor_id'] . ')';
+            }
+        }
+
+        // Check created_by_user_id
+        if (isset($data['created_by_user_id'])) {
+            $userExists = \App\Models\User::find($data['created_by_user_id']);
+            if (!$userExists) {
+                // This is nullable, so we can just remove it
+                unset($data['created_by_user_id']);
+            }
+        }
+
+        return $errors;
+    }
+
+    /**
+     * Get redirect URL based on restored model type.
+     */
+    private function getRedirectUrl(string $modelClass, $record): string
+    {
+        return match ($modelClass) {
+            'App\Models\Doctor' => '/doctors',
+            'App\Models\BirthRecord' => '/birth-records/' . $record->id,
+            'App\Models\User' => '/users',
+            'App\Models\Skl' => '/birth-records',
+            default => '/activity-logs',
+        };
+    }
 }
+

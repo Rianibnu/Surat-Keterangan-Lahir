@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Metodologi Penelitian - Sistem Informasi SKL</title>
+<style>
+body { font-family: 'Times New Roman', serif; font-size: 12pt; line-height: 1.5; margin: 2.5cm; }
+h1 { font-size: 16pt; text-align: center; font-weight: bold; margin-bottom: 20pt; }
+h2 { font-size: 14pt; font-weight: bold; margin-top: 20pt; }
+h3 { font-size: 12pt; font-weight: bold; margin-top: 15pt; }
+h4 { font-size: 12pt; font-weight: bold; font-style: italic; }
+table { border-collapse: collapse; width: 100%; margin: 10pt 0; }
+th, td { border: 1px solid black; padding: 5pt; text-align: left; font-size: 11pt; }
+th { background-color: #f0f0f0; font-weight: bold; }
+pre { font-family: 'Courier New', monospace; font-size: 9pt; background: #f5f5f5; padding: 10pt; overflow-x: auto; white-space: pre; }
+ul, ol { margin-left: 20pt; }
+.center { text-align: center; }
+.page-break { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<h1>METODOLOGI PENELITIAN</h1>
+<h2 class="center">Sistem Informasi Surat Keterangan Lahir (SKL) Berbasis Web pada Rumah Sakit</h2>
+
+<hr>
+
+<h2>BAB III: METODOLOGI PENELITIAN</h2>
+
+<h3>3.1 Metode Pengembangan Sistem</h3>
+<p>Pengembangan Sistem Informasi Surat Keterangan Lahir (SKL) ini menggunakan metode <b>Waterfall (Air Terjun)</b>. Metode ini dipilih karena cocok untuk proyek dengan requirement yang sudah jelas dan stabil.</p>
+
+<h4>3.1.1 Tahapan Metode Waterfall</h4>
+<ol>
+<li><b>Requirement Analysis (Analisis Kebutuhan)</b>
+<ul>
+<li>Mengidentifikasi kebutuhan pengguna sistem</li>
+<li>Menganalisis proses bisnis penerbitan SKL yang berjalan saat ini</li>
+<li>Menentukan fitur-fitur yang diperlukan dalam sistem</li>
+<li>Melakukan wawancara dengan stakeholder (bidan, admin RS, dokter)</li>
+</ul>
+</li>
+<li><b>System Design (Desain Sistem)</b>
+<ul>
+<li>Perancangan arsitektur sistem</li>
+<li>Perancangan database (ERD - Entity Relationship Diagram)</li>
+<li>Perancangan antarmuka pengguna (UI/UX Design)</li>
+<li>Perancangan alur sistem (Flowchart, Use Case Diagram, Activity Diagram)</li>
+</ul>
+</li>
+<li><b>Implementation (Implementasi/Pengkodean)</b>
+<ul>
+<li>Pengkodean backend menggunakan Laravel 12</li>
+<li>Pengkodean frontend menggunakan Vue.js 3</li>
+<li>Integrasi antara backend dan frontend menggunakan Inertia.js</li>
+</ul>
+</li>
+<li><b>Testing (Pengujian)</b>
+<ul>
+<li>Pengujian fungsional menggunakan metode Black Box Testing</li>
+<li>Pengujian validasi input data</li>
+<li>Pengujian User Acceptance Test (UAT)</li>
+</ul>
+</li>
+<li><b>Deployment & Maintenance</b>
+<ul>
+<li>Deployment sistem ke server produksi</li>
+<li>Pelatihan pengguna</li>
+<li>Pemeliharaan dan perbaikan bug</li>
+</ul>
+</li>
+</ol>
+
+<h3>3.2 Metode Pengumpulan Data</h3>
+
+<h4>3.2.1 Observasi</h4>
+<p>Pengamatan langsung terhadap proses penerbitan Surat Keterangan Lahir yang berlaku saat ini di rumah sakit.</p>
+
+<h4>3.2.2 Wawancara</h4>
+<p>Melakukan wawancara dengan pihak-pihak terkait:</p>
+<ul>
+<li><b>Bidan</b>: Untuk memahami proses input data kelahiran</li>
+<li><b>Admin Rumah Sakit</b>: Untuk memahami proses administrasi dan dokumentasi</li>
+<li><b>Dokter Penanggung Jawab</b>: Untuk memahami proses validasi dan penandatanganan</li>
+</ul>
+
+<h4>3.2.3 Studi Pustaka</h4>
+<p>Mengumpulkan referensi dari jurnal ilmiah, buku, dan dokumentasi resmi framework.</p>
+
+<h3>3.3 Teknologi dan Alat Pengembangan</h3>
+
+<h4>3.3.1 Teknologi Backend</h4>
+<table>
+<tr><th>Teknologi</th><th>Versi</th><th>Fungsi</th></tr>
+<tr><td>PHP</td><td>8.2+</td><td>Bahasa pemrograman server-side</td></tr>
+<tr><td>Laravel Framework</td><td>12.x</td><td>Framework PHP untuk pengembangan web</td></tr>
+<tr><td>Laravel Fortify</td><td>1.30</td><td>Authentication scaffolding</td></tr>
+<tr><td>Spatie Laravel Permission</td><td>6.24</td><td>Manajemen Role & Permission (RBAC)</td></tr>
+<tr><td>Spatie Activitylog</td><td>4.10</td><td>Pencatatan audit trail aktivitas sistem</td></tr>
+<tr><td>Barryvdh Laravel DomPDF</td><td>3.1</td><td>Generate dokumen PDF</td></tr>
+<tr><td>Inertia.js Laravel</td><td>2.0</td><td>Bridge antara Laravel dan Vue.js</td></tr>
+</table>
+
+<h4>3.3.2 Teknologi Frontend</h4>
+<table>
+<tr><th>Teknologi</th><th>Versi</th><th>Fungsi</th></tr>
+<tr><td>Vue.js</td><td>3.5</td><td>Framework JavaScript reaktif</td></tr>
+<tr><td>TypeScript</td><td>5.2</td><td>Superset JavaScript dengan static typing</td></tr>
+<tr><td>Tailwind CSS</td><td>4.1</td><td>Utility-first CSS framework</td></tr>
+<tr><td>Lucide Icons</td><td>0.468</td><td>Library ikon vektor</td></tr>
+<tr><td>QRCode.vue</td><td>3.6</td><td>Generator QR Code</td></tr>
+<tr><td>Vite</td><td>7.0</td><td>Build tool dan development server</td></tr>
+</table>
+
+<h4>3.3.3 Database</h4>
+<table>
+<tr><th>Teknologi</th><th>Fungsi</th></tr>
+<tr><td>MySQL/MariaDB/PostgreSQL</td><td>Database relasional untuk penyimpanan data</td></tr>
+<tr><td>SQLite</td><td>Database untuk development dan testing</td></tr>
+</table>
+
+<div class="page-break"></div>
+
+<h3>3.4 Arsitektur Sistem</h3>
+<p>Sistem ini menggunakan arsitektur <b>Monolithic Modern</b> dengan pendekatan <b>Single Page Application (SPA)</b> yang diimplementasikan menggunakan <b>Inertia.js</b>.</p>
+
+<h4>3.4.1 Pola Desain (Design Pattern)</h4>
+<ol>
+<li><b>MVC (Model-View-Controller)</b> - Model: Eloquent ORM, View: Vue.js, Controller: Laravel</li>
+<li><b>Repository Pattern</b> - Memisahkan logika akses data dari logika bisnis</li>
+<li><b>Service Layer Pattern</b> - Services untuk logika bisnis kompleks</li>
+<li><b>RBAC (Role-Based Access Control)</b> - Menggunakan Spatie Laravel Permission</li>
+</ol>
+
+<h3>3.5 Perancangan Database</h3>
+
+<h4>3.5.1 Entity Relationship Diagram (ERD)</h4>
+<p><i>[Lihat diagram ERD pada dokumen Markdown asli]</i></p>
+
+<h4>3.5.2 Relasi Antar Tabel</h4>
+<table>
+<tr><th>Tabel Asal</th><th>Relasi</th><th>Tabel Tujuan</th><th>Keterangan</th></tr>
+<tr><td>users</td><td>One to Many</td><td>birth_records</td><td>Satu user dapat membuat banyak data kelahiran</td></tr>
+<tr><td>doctors</td><td>One to Many</td><td>birth_records</td><td>Satu dokter dapat menangani banyak kelahiran</td></tr>
+<tr><td>birth_records</td><td>One to One</td><td>skls</td><td>Satu data kelahiran memiliki satu SKL</td></tr>
+</table>
+
+<h4>3.5.3 Class Diagram</h4>
+<p><i>[Lihat diagram Class pada dokumen Markdown asli - berisi Model classes: User, Doctor, BirthRecord, Skl dan Controller classes]</i></p>
+
+<h4>3.5.4 Sequence Diagram</h4>
+<p>Terdapat 4 Sequence Diagram:</p>
+<ol>
+<li>Sequence Diagram: Proses Login</li>
+<li>Sequence Diagram: Proses Input Data Kelahiran</li>
+<li>Sequence Diagram: Proses Generate & Cetak PDF SKL</li>
+<li>Sequence Diagram: Proses Verifikasi SKL via QR Code</li>
+</ol>
+
+<h3>3.6 Perancangan Alur Sistem</h3>
+
+<h4>3.6.1 Use Case Diagram</h4>
+<p>Aktor dalam sistem:</p>
+<ul>
+<li><b>Bidan</b>: Login, Input Data Kelahiran, Lihat Data, Cetak SKL</li>
+<li><b>Admin</b>: Manajemen Pengguna, Manajemen Dokter, Lihat Activity Log, Dashboard</li>
+<li><b>Super Admin</b>: Akses Penuh Sistem</li>
+<li><b>Publik</b>: Verifikasi SKL (QR Code)</li>
+</ul>
+
+<h4>3.6.2 Activity Diagram</h4>
+<p>Activity Diagram menggambarkan alur proses penerbitan SKL dari login hingga cetak PDF.</p>
+
+<h4>3.6.3 Flowchart Detail Proses Sistem</h4>
+<p>Terdapat 5 Flowchart Detail:</p>
+<ol>
+<li>Flowchart Proses Login Sistem</li>
+<li>Flowchart Proses Input Data Kelahiran</li>
+<li>Flowchart Proses Cetak SKL (PDF)</li>
+<li>Flowchart Proses Verifikasi SKL via QR Code</li>
+<li>Flowchart Proses Manajemen User (Admin)</li>
+</ol>
+
+<div class="page-break"></div>
+
+<h3>3.7 Perancangan Antarmuka (UI/UX)</h3>
+
+<h4>3.7.1 Struktur Navigasi</h4>
+<ul>
+<li>Dashboard</li>
+<li>Data Kelahiran (Daftar, Tambah, Edit, Detail, Cetak)</li>
+<li>Data Dokter (Daftar, Tambah, Edit)</li>
+<li>Manajemen Pengguna (Admin only)</li>
+<li>Activity Log (Admin only)</li>
+<li>Pengaturan (Profile, Password)</li>
+</ul>
+
+<h4>3.7.2 Komponen UI Utama</h4>
+<ol>
+<li><b>Dashboard</b>: Statistik kelahiran, grafik distribusi, data terbaru</li>
+<li><b>Form Input Data Kelahiran</b>: Data Bayi, Data Ibu, Data Ayah, Pilihan Dokter</li>
+<li><b>Dokumen SKL (PDF)</b>: Header RS, Nomor Dokumen, Data Bilingual, TTD Digital, QR Code</li>
+</ol>
+
+<h3>3.8 Metode Pengujian</h3>
+
+<h4>3.8.1 Black Box Testing</h4>
+<table>
+<tr><th>No</th><th>Fungsi yang Diuji</th><th>Skenario Pengujian</th><th>Hasil yang Diharapkan</th></tr>
+<tr><td>1</td><td>Login</td><td>Input email dan password valid</td><td>Berhasil masuk ke dashboard</td></tr>
+<tr><td>2</td><td>Login</td><td>Input email atau password salah</td><td>Tampil pesan error</td></tr>
+<tr><td>3</td><td>Input Data Kelahiran</td><td>Input semua field dengan data valid</td><td>Data tersimpan, nomor SKL tergenerate</td></tr>
+<tr><td>4</td><td>Input Data Kelahiran</td><td>Kosongkan field wajib</td><td>Tampil pesan validasi error</td></tr>
+<tr><td>5</td><td>Cetak SKL</td><td>Klik tombol cetak</td><td>PDF tergenerate dengan QR Code</td></tr>
+<tr><td>6</td><td>Verifikasi QR</td><td>Scan QR Code pada SKL</td><td>Halaman verifikasi menampilkan data valid</td></tr>
+<tr><td>7</td><td>Manajemen User</td><td>Tambah user baru</td><td>User berhasil ditambahkan</td></tr>
+<tr><td>8</td><td>Manajemen Dokter</td><td>Edit data dokter</td><td>Data dokter terupdate</td></tr>
+<tr><td>9</td><td>Activity Log</td><td>Akses halaman activity log</td><td>Menampilkan riwayat aktivitas</td></tr>
+<tr><td>10</td><td>Hak Akses</td><td>Bidan akses halaman admin</td><td>Tampil pesan unauthorized</td></tr>
+</table>
+
+<h4>3.8.2 User Acceptance Test (UAT)</h4>
+<ol>
+<li>Kemudahan Penggunaan</li>
+<li>Kesesuaian Fitur</li>
+<li>Kelengkapan Data</li>
+<li>Kualitas Output</li>
+<li>Performa</li>
+</ol>
+
+<h3>3.9 Keamanan Sistem</h3>
+
+<h4>3.9.1 Implementasi Keamanan</h4>
+<table>
+<tr><th>Aspek</th><th>Implementasi</th></tr>
+<tr><td>Autentikasi</td><td>Laravel Fortify dengan hashing bcrypt</td></tr>
+<tr><td>Otorisasi</td><td>Role-Based Access Control (Spatie Permission)</td></tr>
+<tr><td>CSRF Protection</td><td>Token CSRF terintegrasi otomatis</td></tr>
+<tr><td>SQL Injection</td><td>Eloquent ORM dengan prepared statements</td></tr>
+<tr><td>XSS Prevention</td><td>Vue.js auto-escaping + Laravel Blade</td></tr>
+<tr><td>Enkripsi</td><td>HTTPS + APP_KEY encryption</td></tr>
+<tr><td>Audit Trail</td><td>Spatie Activitylog untuk logging aktivitas</td></tr>
+</table>
+
+<h4>3.9.2 Role dan Permission</h4>
+<table>
+<tr><th>Role</th><th>Permissions</th></tr>
+<tr><td>Super Admin</td><td>Full access (semua fitur)</td></tr>
+<tr><td>Admin</td><td>Manajemen user, dokter, lihat activity log</td></tr>
+<tr><td>Bidan</td><td>Input data kelahiran, cetak SKL</td></tr>
+</table>
+
+<h3>3.10 Lingkungan Implementasi</h3>
+
+<h4>3.10.1 Kebutuhan Hardware (Server)</h4>
+<table>
+<tr><th>Komponen</th><th>Spesifikasi Minimum</th></tr>
+<tr><td>Processor</td><td>Dual Core 2.0 GHz</td></tr>
+<tr><td>RAM</td><td>4 GB</td></tr>
+<tr><td>Storage</td><td>50 GB SSD</td></tr>
+<tr><td>Network</td><td>100 Mbps</td></tr>
+</table>
+
+<h4>3.10.2 Kebutuhan Software (Server)</h4>
+<table>
+<tr><th>Software</th><th>Versi</th></tr>
+<tr><td>Operating System</td><td>Ubuntu 22.04 LTS / Windows Server 2019</td></tr>
+<tr><td>Web Server</td><td>Nginx / Apache</td></tr>
+<tr><td>PHP</td><td>8.2 atau lebih tinggi</td></tr>
+<tr><td>Database</td><td>MySQL 8.0 / MariaDB 10.6</td></tr>
+<tr><td>Node.js</td><td>18.x LTS</td></tr>
+</table>
+
+<h3>3.11 Jadwal Penelitian</h3>
+<table>
+<tr><th>No</th><th>Kegiatan</th><th>Minggu 1-2</th><th>Minggu 3-4</th><th>Minggu 5-6</th><th>Minggu 7-8</th><th>Minggu 9-10</th><th>Minggu 11-12</th></tr>
+<tr><td>1</td><td>Pengumpulan Data</td><td style="background:#4CAF50">✓</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>2</td><td>Analisis Kebutuhan</td><td style="background:#4CAF50">✓</td><td style="background:#4CAF50">✓</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>3</td><td>Desain Sistem</td><td></td><td style="background:#2196F3">✓</td><td style="background:#2196F3">✓</td><td></td><td></td><td></td></tr>
+<tr><td>4</td><td>Implementasi</td><td></td><td></td><td style="background:#FF9800">✓</td><td style="background:#FF9800">✓</td><td style="background:#FF9800">✓</td><td></td></tr>
+<tr><td>5</td><td>Pengujian</td><td></td><td></td><td></td><td></td><td style="background:#9C27B0">✓</td><td style="background:#9C27B0">✓</td></tr>
+<tr><td>6</td><td>Dokumentasi</td><td></td><td></td><td></td><td></td><td></td><td style="background:#607D8B">✓</td></tr>
+</table>
+
+<hr>
+
+<h2>REFERENSI YANG DISARANKAN</h2>
+
+<h3>Buku:</h3>
+<ol>
+<li>Pressman, R. S., & Maxim, B. R. (2020). <i>Software Engineering: A Practitioner's Approach</i>. McGraw-Hill.</li>
+<li>Sommerville, I. (2016). <i>Software Engineering</i>. Pearson.</li>
+<li>Fowler, M. (2018). <i>Refactoring: Improving the Design of Existing Code</i>. Addison-Wesley.</li>
+</ol>
+
+<h3>Dokumentasi Resmi:</h3>
+<ol>
+<li>Laravel Documentation - https://laravel.com/docs</li>
+<li>Vue.js Documentation - https://vuejs.org/guide</li>
+<li>Inertia.js Documentation - https://inertiajs.com</li>
+<li>Tailwind CSS Documentation - https://tailwindcss.com/docs</li>
+</ol>
+
+<hr>
+<p><i>Dokumen ini dibuat sebagai panduan metodologi penelitian untuk skripsi pengembangan Sistem Informasi Surat Keterangan Lahir (SKL) berbasis web.</i></p>
+
+</body>
+</html>

@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Activity, ArrowLeft, Calendar, User, FileText, Code, Globe, Monitor } from 'lucide-vue-next';
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
+import { Activity, ArrowLeft, Calendar, User, FileText, Code, Globe, Monitor, RotateCcw, AlertTriangle } from 'lucide-vue-next';
 import { type BreadcrumbItem } from '@/types';
+import { ref } from 'vue';
 
 const props = defineProps<{
     activity: {
@@ -25,6 +27,7 @@ const props = defineProps<{
         event: string | null;
         created_at: string;
     };
+    canRestore?: boolean;
 }>();
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -32,6 +35,10 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Activity Log', href: '/activity-logs' },
     { title: `Detail #${props.activity.id}`, href: `/activity-logs/${props.activity.id}` },
 ];
+
+// Restore dialog state
+const showRestoreDialog = ref(false);
+const isRestoring = ref(false);
 
 const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -106,6 +113,19 @@ const getChangedFields = () => {
 
     return fields;
 };
+
+const getDeletedData = () => {
+    return props.activity.properties?.old || {};
+};
+
+const confirmRestore = () => {
+    isRestoring.value = true;
+    router.post(`/activity-logs/${props.activity.id}/restore`, {}, {
+        onFinish: () => {
+            isRestoring.value = false;
+        }
+    });
+};
 </script>
 
 <template>
@@ -123,12 +143,40 @@ const getChangedFields = () => {
                         {{ activity.description }}
                     </p>
                 </div>
-                <Link href="/activity-logs">
-                    <Button variant="outline" size="sm">
-                        <ArrowLeft class="h-4 w-4 mr-2" />
-                        Kembali
+                <div class="flex items-center gap-3">
+                    <!-- Restore Button - Only show for deleted events -->
+                    <Button 
+                        v-if="canRestore && activity.event === 'deleted'"
+                        @click="showRestoreDialog = true"
+                        class="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white shadow-lg shadow-emerald-500/25"
+                    >
+                        <RotateCcw class="h-4 w-4 mr-2" />
+                        Pulihkan Data
                     </Button>
-                </Link>
+                    <Link href="/activity-logs">
+                        <Button variant="outline" size="sm">
+                            <ArrowLeft class="h-4 w-4 mr-2" />
+                            Kembali
+                        </Button>
+                    </Link>
+                </div>
+            </div>
+
+            <!-- Restore Alert Banner -->
+            <div 
+                v-if="canRestore && activity.event === 'deleted'" 
+                class="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4 flex items-start gap-4"
+            >
+                <div class="p-2 bg-amber-100 dark:bg-amber-900/40 rounded-lg">
+                    <AlertTriangle class="h-5 w-5 text-amber-600 dark:text-amber-400" />
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-semibold text-amber-800 dark:text-amber-200">Data Dapat Dipulihkan</h3>
+                    <p class="text-sm text-amber-700 dark:text-amber-300 mt-1">
+                        Data <strong>{{ getSubjectName(activity.subject_type) }}</strong> yang dihapus dapat dipulihkan. 
+                        Klik tombol "Pulihkan Data" untuk mengembalikan data ke kondisi sebelum dihapus.
+                    </p>
+                </div>
             </div>
 
             <div class="grid gap-6 md:grid-cols-2">
@@ -308,6 +356,38 @@ const getChangedFields = () => {
                 </CardContent>
             </Card>
 
+            <!-- Deleted Data Detail (for deleted events) -->
+            <Card v-if="activity.event === 'deleted' && Object.keys(getDeletedData()).length > 0" class="shadow-sm border-0 dark:bg-gray-800/50 border-l-4 border-l-red-500">
+                <CardHeader class="bg-red-50/50 dark:bg-red-900/10">
+                    <CardTitle class="text-base flex items-center gap-2 text-red-700 dark:text-red-400">
+                        <AlertTriangle class="h-4 w-4" />
+                        Data yang Dihapus
+                    </CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-gray-50 dark:bg-gray-800/80 border-b dark:border-gray-700">
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase w-1/3">Field</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase">Nilai</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                                <tr v-for="(value, key) in getDeletedData()" :key="key">
+                                    <td class="px-4 py-3 font-mono text-sm font-medium text-gray-700 dark:text-gray-300">{{ key }}</td>
+                                    <td class="px-4 py-3">
+                                        <code class="px-2 py-1 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 rounded text-xs">
+                                            {{ formatValue(value) }}
+                                        </code>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </CardContent>
+            </Card>
+
             <!-- Raw Properties -->
             <Card class="shadow-sm border-0 dark:bg-gray-800/50">
                 <CardHeader>
@@ -321,5 +401,18 @@ const getChangedFields = () => {
                 </CardContent>
             </Card>
         </div>
+
+        <!-- Restore Confirmation Dialog -->
+        <ConfirmDialog
+            v-model="showRestoreDialog"
+            title="Pulihkan Data"
+            :message="`Apakah Anda yakin ingin memulihkan data '${getSubjectName(activity.subject_type)}' yang telah dihapus? Data akan dibuat ulang dengan nilai sebelum penghapusan.`"
+            confirm-text="Ya, Pulihkan"
+            cancel-text="Batal"
+            variant="info"
+            icon="check"
+            @confirm="confirmRestore"
+        />
     </AppLayout>
 </template>
+

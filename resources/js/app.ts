@@ -41,9 +41,13 @@ createInertiaApp({
             return routes[name] || '#';
         };
 
-        createApp({ render: () => h(App, props) })
-            .use(plugin)
-            .mixin({ methods: { route } })
+        const app = createApp({ render: () => h(App, props) });
+
+        // Register route as global property (accessible via useRoute composable)
+        app.config.globalProperties.route = route;
+
+        app.use(plugin)
+            .mixin({ methods: { route } }) // Keep mixin for template usage
             .mount(el);
     },
     progress: {

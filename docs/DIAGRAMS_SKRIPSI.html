@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Diagram Skripsi - Sistem Informasi SKL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a2e;
+            color: #fff;
+            padding: 40px;
+        }
+
+        .diagram-container {
+            background: #16213e;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .diagram-title {
+            color: #00d4ff;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #00d4ff;
+            padding-bottom: 10px;
+        }
+
+        pre {
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 11px;
+            line-height: 1.3;
+            color: #e8e8e8;
+            background: #0f0f23;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        h1 {
+            color: #00d4ff;
+            text-align: center;
+        }
+
+        h2 {
+            color: #ff6b6b;
+            margin-top: 50px;
+        }
+
+        .page-break {
+            page-break-before: always;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>📊 DIAGRAM SISTEM INFORMASI SKL</h1>
+
+    <h2>1. DIAGRAM WATERFALL</h2>
+    <div class="diagram-container">
+        <div class="diagram-title">Gambar 3.1 - Tahapan Metode Waterfall</div>
+        <pre>
+┌─────────────────────────────────────────────────────────────┐
+│                    1. REQUIREMENT ANALYSIS                   │
+│                   (Analisis Kebutuhan)                       │
+└─────────────────────────┬───────────────────────────────────┘
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    2. SYSTEM DESIGN                          │
+│                   (Desain Sistem)                            │
+└─────────────────────────┬───────────────────────────────────┘
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    3. IMPLEMENTATION                         │
+│                   (Implementasi/Pengkodean)                  │
+└─────────────────────────┬───────────────────────────────────┘
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    4. TESTING                                │
+│                   (Pengujian)                                │
+└─────────────────────────┬───────────────────────────────────┘
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    5. DEPLOYMENT & MAINTENANCE               │
+│                   (Implementasi & Pemeliharaan)              │
+└─────────────────────────────────────────────────────────────┘
+</pre>
+    </div>
+
+    <h2>2. ARSITEKTUR SISTEM</h2>
+    <div class="diagram-container">
+        <div class="diagram-title">Gambar 3.2 - Arsitektur Aplikasi</div>
+        <pre>
+┌─────────────────────────────────────────────────────────────┐
+│                        CLIENT (Browser)                      │
+│                                                              │
+│  ┌────────────────────────────────────────────────────────┐ │
+│  │                Vue.js 3 + Inertia.js                   │ │
+│  │   • Composition API                                     │ │
+│  │   • Component-based Architecture                        │ │
+│  │   • Tailwind CSS Styling                                │ │
+│  └────────────────────────────────────────────────────────┘ │
+└──────────────────────────┬──────────────────────────────────┘
+                           │ HTTP Request
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│                     SERVER (Laravel 12)                      │
+│                                                              │
+│  ┌────────────────────────────────────────────────────────┐ │
+│  │                    Middleware Layer                     │ │
+│  │   • Authentication (Fortify)                            │ │
+│  │   • Authorization (Spatie Permission)                   │ │
+│  │   • CSRF Protection                                     │ │
+│  └────────────────────────────────────────────────────────┘ │
+│                           │                                  │
+│  ┌────────────────────────────────────────────────────────┐ │
+│  │                    Controller Layer                     │ │
+│  │   • BirthRecordController                               │ │
+│  │   • DoctorController                                    │ │
+│  │   • SklPdfController                                    │ │
+│  │   • UserController                                      │ │
+│  └────────────────────────────────────────────────────────┘ │
+│                           │                                  │
+│  ┌────────────────────────────────────────────────────────┐ │
+│  │                      Model Layer                        │ │
+│  │   • BirthRecord  • Doctor  • Skl  • User                │ │
+│  └────────────────────────────────────────────────────────┘ │
+│                           │                                  │
+│  ┌────────────────────────────────────────────────────────┐ │
+│  │                    Eloquent ORM                         │ │
+│  └────────────────────────────────────────────────────────┘ │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│                      DATABASE (MySQL)                        │
+│   Tables: users, birth_records, doctors, skls,              │
+│           activity_log, roles, permissions                   │
+└─────────────────────────────────────────────────────────────┘
+</pre>
+    </div>
+
+    <div class="page-break"></div>
+    <h2>3. ENTITY RELATIONSHIP DIAGRAM (ERD)</h2>
+    <div class="diagram-container">
+        <div class="diagram-title">Gambar 3.3 - Entity Relationship Diagram</div>
+        <pre>
+┌─────────────────┐          ┌─────────────────┐
+│     USERS       │          │     DOCTORS     │
+├─────────────────┤          ├─────────────────┤
+│ id (PK)         │          │ id (PK)         │
+│ name            │          │ name            │
+│ email           │          │ license_no      │
+│ password        │          │ hospital        │
+│ role            │          │ signature_path  │
+│ created_at      │          │ created_at      │
+│ updated_at      │          │ updated_at      │
+└────────┬────────┘          └────────┬────────┘
+         │                            │
+         │ 1                          │ 1
+         │                            │
+         ▼ M                          ▼ M
+┌─────────────────────────────────────────────────────────┐
+│                     BIRTH_RECORDS                        │
+├─────────────────────────────────────────────────────────┤
+│ id (PK)                                                  │
+│ baby_name                   │ mother_name                │
+│ medical_record_no           │ mother_medical_record_no   │
+│ birth_date                  │ mother_id_number           │
+│ birth_time                  │ mother_address             │
+│ gender                      │ mother_occupation          │
+│ child_order                 │ mother_blood_type          │
+│ delivery_method             │ father_name                │
+│ blood_type                  │ father_id_number           │
+│ weight                      │ father_address             │
+│ length                      │ father_occupation          │
+│ head_circumference          │ father_blood_type          │
+│ chest_circumference         │ doctor_id (FK)             │
+│ hospital_name               │ created_by_user_id (FK)    │
+│ created_at                  │ updated_at                 │
+└─────────────────────────────┴────────────────────────────┘
+         │
+         │ 1
+         │
+         ▼ 1
+┌─────────────────────────────────────────────────────────┐
+│                         SKLS                             │
+├─────────────────────────────────────────────────────────┤
+│ id (PK)                                                  │
+│ birth_record_id (FK)                                     │
+│ uuid (Unique)                                            │
+│ document_number                                          │
+│ issue_date                                               │
+│ signer_name                                              │
+│ signer_role                                              │
+│ is_signed                                                │
+│ created_at                                               │
+│ updated_at                                               │
+└─────────────────────────────────────────────────────────┘
+</pre>
+    </div>
+
+    <div class="page-break"></div>
+    <h2>4. USE CASE DIAGRAM</h2>
+    <div class="diagram-container">
+        <div class="diagram-title">Gambar 3.4 - Use Case Diagram</div>
+        <pre>
+                              ┌─────────────────────────────────────┐
+                              │         SISTEM INFORMASI SKL        │
+                              │                                     │
+    ┌────────┐               │  ┌───────────────────────────────┐  │
+    │        │───────────────┼─▶│         Login Sistem          │  │
+    │ Bidan  │               │  └───────────────────────────────┘  │
+    │        │               │                                     │
+    │        │───────────────┼─▶│     Input Data Kelahiran      │  │
+    │        │               │  └───────────────────────────────┘  │
+    │        │               │                                     │
+    │        │───────────────┼─▶│       Lihat Data Kelahiran    │  │
+    │        │               │  └───────────────────────────────┘  │
+    │        │               │                                     │
+    │        │───────────────┼─▶│        Cetak SKL (PDF)        │  │
+    └────────┘               │  └───────────────────────────────┘  │
+                              │                                     │
+    ┌────────┐               │  ┌───────────────────────────────┐  │
+    │        │───────────────┼─▶│      Manajemen Pengguna       │  │
+    │ Admin  │               │  └───────────────────────────────┘  │
+    │        │               │                                     │
+    │        │───────────────┼─▶│      Manajemen Dokter         │  │
+    │        │               │  └───────────────────────────────┘  │
+    │        │               │                                     │
+    │        │───────────────┼─▶│    Lihat Activity Log         │  │
+    │        │               │  └───────────────────────────────┘  │
+    │        │               │                                     │
+    │        │───────────────┼─▶│          Dashboard            │  │
+    └────────┘               │  └───────────────────────────────┘  │
+                              │                                     │
+    ┌────────┐               │  ┌───────────────────────────────┐  │
+    │ Super  │───────────────┼─▶│      Akses Penuh Sistem       │  │
+    │ Admin  │               │  └───────────────────────────────┘  │
+    └────────┘               │                                     │
+                              │                                     │
+    ┌────────┐               │  ┌───────────────────────────────┐  │
+    │ Publik │───────────────┼─▶│    Verifikasi SKL (QR Code)   │  │
+    └────────┘               │  └───────────────────────────────┘  │
+                              │                                     │
+                              └─────────────────────────────────────┘
+</pre>
+    </div>
+
+    <div class="page-break"></div>
+    <h2>5. ACTIVITY DIAGRAM</h2>
+    <div class="diagram-container">
+        <div class="diagram-title">Gambar 3.5 - Activity Diagram Proses Penerbitan SKL</div>
+        <pre>
+┌─────────┐     ┌─────────┐     ┌─────────────┐
+│  Bidan  │     │  Sistem │     │  Database   │
+└────┬────┘     └────┬────┘     └──────┬──────┘
+     │               │                  │
+     │  Login        │                  │
+     ├──────────────▶│                  │
+     │               │  Validasi        │
+     │               ├─────────────────▶│
+     │               │                  │
+     │  ◀────────────┤  Hasil Validasi  │
+     │               │◀─────────────────┤
+     │               │                  │
+     │  Input Data   │                  │
+     │  Kelahiran    │                  │
+     ├──────────────▶│                  │
+     │               │                  │
+     │               │  Validasi Input  │
+     │               ├─────────────────▶│
+     │               │                  │
+     │               │  Simpan Data     │
+     │               ├─────────────────▶│
+     │               │                  │
+     │               │  Generate Nomor  │
+     │               │  SKL & UUID      │
+     │               ├─────────────────▶│
+     │               │                  │
+     │  ◀────────────┤  Sukses          │
+     │               │                  │
+     │  Cetak PDF    │                  │
+     ├──────────────▶│                  │
+     │               │                  │
+     │               │  Generate PDF    │
+     │               │  + QR Code       │
+     │               ├─────────────────▶│
+     │               │                  │
+     │  ◀────────────┤  PDF Ready       │
+     │               │                  │
+     ▼               ▼                  ▼
+</pre>
+    </div>
+
+    <div class="page-break"></div>
+    <h2>6. SEQUENCE DIAGRAM - LOGIN</h2>
+    <div class="diagram-container">
+        <div class="diagram-title">Gambar 3.6 - Sequence Diagram Proses Login</div>
+        <pre>
+┌──────────┐          ┌──────────────┐          ┌────────────────┐          ┌──────────┐
+│  User    │          │  LoginPage   │          │ AuthController │          │ Database │
+│ (Bidan)  │          │   (Vue.js)   │          │   (Laravel)    │          │  (MySQL) │
+└────┬─────┘          └──────┬───────┘          └───────┬────────┘          └────┬─────┘
+     │                       │                          │                        │
+     │  1. Akses Halaman     │                          │                        │
+     │──────────────────────▶│                          │                        │
+     │                       │                          │                        │
+     │  2. Tampilkan Form    │                          │                        │
+     │◀──────────────────────│                          │                        │
+     │                       │                          │                        │
+     │  3. Input Email &     │                          │                        │
+     │     Password          │                          │                        │
+     │──────────────────────▶│                          │                        │
+     │                       │                          │                        │
+     │                       │  4. POST /login          │                        │
+     │                       │  (email, password)       │                        │
+     │                       │─────────────────────────▶│                        │
+     │                       │                          │                        │
+     │                       │                          │  5. SELECT user        │
+     │                       │                          │  WHERE email = ?       │
+     │                       │                          │───────────────────────▶│
+     │                       │                          │                        │
+     │                       │                          │  6. Return User Data   │
+     │                       │                          │◀───────────────────────│
+     │                       │                          │                        │
+     │                       │                          │  7. Verify Password    │
+     │                       │                          │  (bcrypt compare)      │
+     │                       │                          │─────────┐              │
+     │                       │                          │         │              │
+     │                       │                          │◀────────┘              │
+     │                       │                          │                        │
+     │                       │  8. Create Session       │                        │
+     │                       │  Return Auth Token       │                        │
+     │                       │◀─────────────────────────│                        │
+     │                       │                          │                        │
+     │  9. Redirect to       │                          │                        │
+     │     Dashboard         │                          │                        │
+     │◀──────────────────────│                          │                        │
+     │                       │                          │                        │
+     ▼                       ▼                          ▼                        ▼
+</pre>
+    </div>
+
+    <div class="page-break"></div>
+    <h2>7. SEQUENCE DIAGRAM - CETAK PDF SKL</h2>
+    <div class="diagram-container">
+        <div class="diagram-title">Gambar 3.7 - Sequence Diagram Generate & Cetak PDF SKL</div>
+        <pre>
+┌──────────┐      ┌──────────────┐      ┌────────────────┐      ┌──────────┐      ┌─────────┐
+│  Bidan   │      │  DetailPage  │      │ SklPdfController│     │ Database │      │ DomPDF  │
+└────┬─────┘      └──────┬───────┘      └───────┬────────┘      └────┬─────┘      └────┬────┘
+     │                   │                      │                    │                 │
+     │ 1. Klik Cetak     │                      │                    │                 │
+     │    SKL            │                      │                    │                 │
+     │──────────────────▶│                      │                    │                 │
+     │                   │                      │                    │                 │
+     │                   │ 2. GET /skl/{id}/pdf │                    │                 │
+     │                   │─────────────────────▶│                    │                 │
+     │                   │                      │                    │                 │
+     │                   │                      │ 3. SELECT          │                 │
+     │                   │                      │    birth_record    │                 │
+     │                   │                      │    + skl + doctor  │                 │
+     │                   │                      │───────────────────▶│                 │
+     │                   │                      │                    │                 │
+     │                   │                      │ 4. Return Data     │                 │
+     │                   │                      │◀───────────────────│                 │
+     │                   │                      │                    │                 │
+     │                   │                      │ 5. Generate        │                 │
+     │                   │                      │    QR Code URL     │                 │
+     │                   │                      │─────────┐          │                 │
+     │                   │                      │         │          │                 │
+     │                   │                      │◀────────┘          │                 │
+     │                   │                      │                    │                 │
+     │                   │                      │ 6. Load PDF        │                 │
+     │                   │                      │    Template        │                 │
+     │                   │                      │────────────────────────────────────▶│
+     │                   │                      │                    │                 │
+     │                   │                      │ 7. Render PDF      │                 │
+     │                   │                      │◀────────────────────────────────────│
+     │                   │                      │                    │                 │
+     │                   │ 8. Return PDF        │                    │                 │
+     │                   │◀─────────────────────│                    │                 │
+     │                   │                      │                    │                 │
+     │ 9. Display PDF    │                      │                    │                 │
+     │◀──────────────────│                      │                    │                 │
+     │                   │                      │                    │                 │
+     ▼                   ▼                      ▼                    ▼                 ▼
+</pre>
+    </div>
+
+    <div class="page-break"></div>
+    <h2>8. SEQUENCE DIAGRAM - VERIFIKASI QR CODE</h2>
+    <div class="diagram-container">
+        <div class="diagram-title">Gambar 3.8 - Sequence Diagram Verifikasi SKL via QR Code</div>
+        <pre>
+┌───────────┐     ┌──────────────┐     ┌────────────────────┐     ┌──────────┐
+│  Publik   │     │   Browser    │     │ PublicSklController│     │ Database │
+│(Pihak Ke-3)│    │              │     │                    │     │          │
+└─────┬─────┘     └──────┬───────┘     └─────────┬──────────┘     └────┬─────┘
+      │                  │                       │                     │
+      │ 1. Scan QR Code  │                       │                     │
+      │    pada SKL      │                       │                     │
+      │─────────┐        │                       │                     │
+      │         │        │                       │                     │
+      │◀────────┘        │                       │                     │
+      │                  │                       │                     │
+      │ 2. Open URL      │                       │                     │
+      │    /verify/{uuid}│                       │                     │
+      │─────────────────▶│                       │                     │
+      │                  │                       │                     │
+      │                  │ 3. GET /verify/{uuid} │                     │
+      │                  │──────────────────────▶│                     │
+      │                  │                       │                     │
+      │                  │                       │ 4. SELECT skl       │
+      │                  │                       │    WHERE uuid = ?   │
+      │                  │                       │────────────────────▶│
+      │                  │                       │                     │
+      │                  │                       │ 5. Return SKL +     │
+      │                  │                       │    BirthRecord      │
+      │                  │                       │◀────────────────────│
+      │                  │                       │                     │
+      │                  │                       │ 6. Validate SKL     │
+      │                  │                       │    Authenticity     │
+      │                  │                       │─────────┐           │
+      │                  │                       │         │           │
+      │                  │                       │◀────────┘           │
+      │                  │                       │                     │
+      │                  │ 7. Return             │                     │
+      │                  │    Verification Page  │                     │
+      │                  │◀──────────────────────│                     │
+      │                  │                       │                     │
+      │ 8. Tampilkan     │                       │                     │
+      │    Status Valid  │                       │                     │
+      │◀─────────────────│                       │                     │
+      │                  │                       │                     │
+      ▼                  ▼                       ▼                     ▼
+</pre>
+    </div>
+
+</body>
+
+</html>
