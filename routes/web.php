@@ -13,7 +13,9 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/verify-skl/{uuid}', [\App\Http\Controllers\PublicSklController::class, 'verify'])->name('skl.verify');
+Route::get('/verify-skl/{uuid}', [\App\Http\Controllers\PublicSklController::class, 'verify'])
+    ->where('uuid', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}')
+    ->name('skl.verify');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard - semua yang login bisa akses
@@ -67,7 +69,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('birth-records.export');
 
     // Generate SKL - staf, admin
-    Route::post('birth-records/{id}/generate-skl', [\App\Http\Controllers\BirthRecordController::class, 'generateSkl'])
+    Route::post('birth-records/{birth_record}/generate-skl', [\App\Http\Controllers\BirthRecordController::class, 'generateSkl'])
         ->middleware('can:skl.create')
         ->name('birth-records.generate-skl');
 

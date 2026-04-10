@@ -48,12 +48,21 @@ onMounted(() => {
 const handleSearch = () => {
     let query = searchQuery.value.trim();
     if (query) {
+        // Extract UUID from full URL if pasted
         if (query.includes('/verify-skl/')) {
             const parts = query.split('/verify-skl/');
             if (parts[1]) {
-                query = parts[1].split('?')[0].split('/')[0];
+                query = parts[1].split('?')[0];
             }
         }
+
+        // Validate UUID format (8-4-4-4-12 hex chars)
+        const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+        if (!uuidRegex.test(query)) {
+            alert('Format UUID tidak valid. Masukkan UUID yang benar atau paste link verifikasi SKL.');
+            return;
+        }
+
         router.visit(`/verify-skl/${query}`);
     }
 };
@@ -64,7 +73,7 @@ const scrollToSection = (sectionId: string) => {
 </script>
 
 <template>
-    <Head title="Sistem Kelahiran Digital - RS Unggul Karsa Medika" />
+    <Head title="SKL Desk - Sistem Kelahiran Digital RS Unggul Karsa Medika" />
 
     <div class="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white antialiased">
         <!-- Navbar: Clean & Minimal -->
@@ -88,7 +97,7 @@ const scrollToSection = (sectionId: string) => {
                         </div>
                         <div class="hidden sm:block">
                             <span class="text-xl font-bold tracking-tight" :class="isNavScrolled ? 'text-slate-900 dark:text-white' : 'text-white'">
-                                VueDesk<span class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">Birth</span>
+                                SKL <span class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">Desk</span>
                             </span>
                         </div>
                     </Link>
@@ -177,7 +186,7 @@ const scrollToSection = (sectionId: string) => {
                                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                 <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                             </span>
-                            <span class="text-sm font-medium text-slate-300">Sistem Kelahiran Digital v2.0</span>
+                            <span class="text-sm font-medium text-slate-300">SKL Desk v2.0</span>
                         </div>
 
                         <!-- Headline -->
@@ -627,7 +636,7 @@ const scrollToSection = (sectionId: string) => {
                             </div>
                             <div>
                                 <span class="text-xl font-bold text-white tracking-tight block">Rumah Sakit Maranatha</span>
-                                <span class="text-sm text-slate-500">Sistem Kelahiran Digital</span>
+                                <span class="text-sm text-slate-500">SKL Desk — Sistem Kelahiran Digital</span>
                             </div>
                         </div>
                         <p class="text-slate-400 leading-relaxed max-w-sm">

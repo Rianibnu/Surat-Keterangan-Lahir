@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\BirthRecord;
 use App\Models\Doctor;
 use App\Models\Skl;
-use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(): Response
     {
         // Total Stats
         $totalBirths = BirthRecord::count();

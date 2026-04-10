@@ -44,7 +44,7 @@ defineProps<{
                         <!-- Brand Name -->
                         <div class="text-center">
                             <span class="text-2xl font-bold tracking-tight text-white">
-                                VueDesk<span class="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Birth</span>
+                                SKL <span class="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Desk</span>
                             </span>
                         </div>
                     </Link>

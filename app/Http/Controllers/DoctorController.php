@@ -3,17 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Doctor;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class DoctorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $query = Doctor::query();
 
@@ -35,7 +37,7 @@ class DoctorController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
         return Inertia::render('Doctors/Create');
     }
@@ -43,13 +45,13 @@ class DoctorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'hospital' => 'required|string|max:255',
             'license_no' => 'nullable|string|max:255',
-            'signature' => 'nullable|string', // Base64 string
+            'signature' => 'nullable|string',
         ]);
 
         if ($request->filled('signature')) {
@@ -68,72 +70,53 @@ class DoctorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Doctor $doctor)
+    public function show(Doctor $doctor): Response
     {
-        //
+        $doctor->load('birthRecords');
+
+        return Inertia::render('Doctors/Show', [
+            'doctor' => $doctor,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Doctor $doctor)
+    public function edit(Doctor $doctor): Response
     {
         return Inertia::render('Doctors/Edit', [
-            'doctor' => $doctor
+            'doctor' => $doctor,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Doctor $doctor)
+    public function update(Request $request, Doctor $doctor): RedirectResponse
     {
-        try {
-            \Illuminate\Support\Facades\Log::info('Doctor update started', [
-                'doctor_id' => $doctor->id,
-                'request_data_keys' => array_keys($request->all()),
-                'has_signature' => $request->filled('signature'),
-            ]);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'hospital' => 'required|string|max:255',
+            'license_no' => 'nullable|string|max:255',
+            'signature' => 'nullable|string',
+        ]);
 
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'hospital' => 'required|string|max:255',
-                'license_no' => 'nullable|string|max:255',
-                'signature' => 'nullable|string', // Base64 form new signature
-            ]);
-
-            \Illuminate\Support\Facades\Log::info('Validation passed', ['validated_keys' => array_keys($validated)]);
-
-            if ($request->filled('signature')) {
-                \Illuminate\Support\Facades\Log::info('Processing new signature');
-                
-                // Delete old signature if exists
-                if ($doctor->signature_path && Storage::disk('public')->exists($doctor->signature_path)) {
-                    Storage::disk('public')->delete($doctor->signature_path);
-                }
-
-                $path = $this->saveSignature($request->signature);
-                if ($path) {
-                    $validated['signature_path'] = $path;
-                    \Illuminate\Support\Facades\Log::info('Signature saved', ['path' => $path]);
-                }
+        if ($request->filled('signature')) {
+            // Delete old signature if exists
+            if ($doctor->signature_path && Storage::disk('public')->exists($doctor->signature_path)) {
+                Storage::disk('public')->delete($doctor->signature_path);
             }
-            unset($validated['signature']);
 
-            $doctor->update($validated);
-            \Illuminate\Support\Facades\Log::info('Doctor updated successfully', ['doctor_id' => $doctor->id]);
-
-            return redirect()->route('doctors.index')->with('success', 'Data dokter berhasil diperbarui.');
-            
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            \Illuminate\Support\Facades\Log::warning('Validation failed', ['errors' => $e->errors()]);
-            throw $e;
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Doctor update error: ' . $e->getMessage(), [
-                'trace' => $e->getTraceAsString()
-            ]);
-            return back()->withErrors(['name' => 'Terjadi kesalahan server: ' . $e->getMessage()]);
+            $path = $this->saveSignature($request->signature);
+            if ($path) {
+                $validated['signature_path'] = $path;
+            }
         }
+        unset($validated['signature']);
+
+        $doctor->update($validated);
+
+        return redirect()->route('doctors.index')->with('success', 'Data dokter berhasil diperbarui.');
     }
 
     private function saveSignature($base64_image_string)
@@ -164,21 +147,9 @@ class DoctorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Doctor $doctor)
+    public function destroy(Doctor $doctor): RedirectResponse
     {
         try {
-            // Check if doctor has related birth records
-            $birthRecordCount = $doctor->birthRecords()->count();
-            
-            if ($birthRecordCount > 0) {
-                // Option 1: Prevent deletion
-                // return redirect()->route('doctors.index')
-                //     ->with('error', "Tidak dapat menghapus dokter ini karena masih memiliki {$birthRecordCount} data kelahiran terkait.");
-                
-                // Option 2: Allow deletion with cascade (current behavior)
-                // Birth records will be deleted due to ON DELETE CASCADE in migration
-            }
-
             // Delete signature file if exists
             if ($doctor->signature_path && Storage::disk('public')->exists($doctor->signature_path)) {
                 Storage::disk('public')->delete($doctor->signature_path);
@@ -189,17 +160,16 @@ class DoctorController extends Controller
 
             return redirect()->route('doctors.index')
                 ->with('success', "Data dokter '{$doctorName}' berhasil dihapus.");
-                
+
         } catch (\Illuminate\Database\QueryException $e) {
-            // Handle foreign key constraint violation
             if (str_contains($e->getMessage(), 'foreign key constraint')) {
                 return redirect()->route('doctors.index')
                     ->with('error', 'Tidak dapat menghapus dokter ini karena masih terkait dengan data lain.');
             }
-            
+
             return redirect()->route('doctors.index')
                 ->with('error', 'Gagal menghapus dokter: ' . $e->getMessage());
-                
+
         } catch (\Exception $e) {
             return redirect()->route('doctors.index')
                 ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());

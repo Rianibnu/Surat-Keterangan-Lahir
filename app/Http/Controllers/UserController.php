@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
+use Inertia\Response;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -14,7 +16,7 @@ class UserController extends Controller
     /**
      * Display a listing of users.
      */
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $query = User::with('roles')->latest();
 
@@ -43,7 +45,7 @@ class UserController extends Controller
     /**
      * Show the form for creating a new user.
      */
-    public function create()
+    public function create(): Response
     {
         $roles = Role::all();
 
@@ -55,7 +57,7 @@ class UserController extends Controller
     /**
      * Store a newly created user.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -78,7 +80,7 @@ class UserController extends Controller
     /**
      * Display the specified user.
      */
-    public function show(User $user)
+    public function show(User $user): Response
     {
         $user->load('roles', 'permissions');
 
@@ -90,7 +92,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the user.
      */
-    public function edit(User $user)
+    public function edit(User $user): Response
     {
         $user->load('roles');
         $roles = Role::all();
@@ -104,7 +106,7 @@ class UserController extends Controller
     /**
      * Update the specified user.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user): RedirectResponse
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -132,7 +134,7 @@ class UserController extends Controller
     /**
      * Remove the specified user.
      */
-    public function destroy(User $user)
+    public function destroy(User $user): RedirectResponse
     {
         // Prevent deleting yourself
         if ($user->id === auth()->id()) {

@@ -10,7 +10,7 @@ import { Baby } from 'lucide-vue-next';
     </div>
     <div class="ml-2 grid flex-1 text-left text-sm">
         <span class="mb-0.5 truncate leading-tight font-bold text-slate-700 dark:text-white"
-            >VueDesk<span class="text-indigo-600 dark:text-indigo-400">Birth</span></span
+            >SKL <span class="text-indigo-600 dark:text-indigo-400">Desk</span></span
         >
     </div>
 </template>
