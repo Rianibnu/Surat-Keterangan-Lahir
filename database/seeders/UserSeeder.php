@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
     {
         // Super Admin
         $superAdmin = User::firstOrCreate(
-            ['email' => 'superadmin@rsukm.com'],
+            ['email' => 'superadmin@rsx.com'],
             [
                 'name' => 'Super Administrator',
                 'password' => Hash::make('password'),
@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
 
         // Admin
         $admin = User::firstOrCreate(
-            ['email' => 'admin@rsukm.com'],
+            ['email' => 'admin@rsx.com'],
             [
                 'name' => 'Administrator RS',
                 'password' => Hash::make('password'),
@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
 
         // Bidan 1
         $bidan1 = User::firstOrCreate(
-            ['email' => 'bidan.siti@rsukm.com'],
+            ['email' => 'bidan.siti@rsx.com'],
             [
                 'name' => 'Bd. Siti Nurhaliza, Amd.Keb',
                 'password' => Hash::make('password'),
@@ -48,7 +48,7 @@ class UserSeeder extends Seeder
 
         // Bidan 2
         $bidan2 = User::firstOrCreate(
-            ['email' => 'bidan.dewi@rsukm.com'],
+            ['email' => 'bidan.dewi@rsx.com'],
             [
                 'name' => 'Bd. Dewi Lestari, Amd.Keb',
                 'password' => Hash::make('password'),
@@ -59,7 +59,7 @@ class UserSeeder extends Seeder
 
         // Bidan 3
         $bidan3 = User::firstOrCreate(
-            ['email' => 'bidan.ratna@rsukm.com'],
+            ['email' => 'bidan.ratna@rsx.com'],
             [
                 'name' => 'Bd. Ratna Sari, S.Keb',
                 'password' => Hash::make('password'),

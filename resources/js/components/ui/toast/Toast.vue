@@ -14,6 +14,22 @@ interface Toast {
 const toasts = ref<Toast[]>([]);
 let toastId = 0;
 
+const removeToast = (id: number) => {
+    const index = toasts.value.findIndex(t => t.id === id);
+    if (index > -1) {
+        toasts.value.splice(index, 1);
+    }
+};
+
+const addToast = (type: Toast['type'], title: string, message?: string, duration = 5000) => {
+    const id = ++toastId;
+    toasts.value.push({ id, type, title, message, duration });
+
+    if (duration > 0) {
+        setTimeout(() => removeToast(id), duration);
+    }
+};
+
 // Watch for flash messages from Inertia
 const page = usePage();
 
@@ -31,22 +47,6 @@ watch(() => (page.props as any).flash, (flash) => {
         addToast('info', 'Informasi', flash.info);
     }
 }, { immediate: true, deep: true });
-
-const addToast = (type: Toast['type'], title: string, message?: string, duration = 5000) => {
-    const id = ++toastId;
-    toasts.value.push({ id, type, title, message, duration });
-
-    if (duration > 0) {
-        setTimeout(() => removeToast(id), duration);
-    }
-};
-
-const removeToast = (id: number) => {
-    const index = toasts.value.findIndex(t => t.id === id);
-    if (index > -1) {
-        toasts.value.splice(index, 1);
-    }
-};
 
 const getIcon = (type: Toast['type']) => {
     switch (type) {
@@ -92,7 +92,7 @@ defineExpose({ addToast });
 
 <template>
     <Teleport to="body">
-        <div class="fixed top-4 right-4 z-[9999] flex flex-col gap-3 pointer-events-none max-w-md w-full">
+        <div class="fixed top-4 right-4 z-9999 flex flex-col gap-3 pointer-events-none max-w-md w-full">
             <TransitionGroup
                 enter-active-class="transform transition-all duration-500 ease-out"
                 enter-from-class="translate-x-full opacity-0 scale-95"
@@ -123,7 +123,7 @@ defineExpose({ addToast });
                     <!-- Content -->
                     <div class="relative flex items-start gap-3 p-4">
                         <!-- Animated Icon -->
-                        <div class="flex-shrink-0">
+                        <div class="shrink-0">
                             <div class="relative">
                                 <div class="absolute inset-0 animate-ping opacity-20">
                                     <component 
@@ -151,7 +151,7 @@ defineExpose({ addToast });
                         <!-- Close Button -->
                         <button
                             @click="removeToast(toast.id)"
-                            class="flex-shrink-0 p-1 rounded-lg text-white/70 hover:text-white hover:bg-white/20 transition-all duration-200"
+                            class="shrink-0 p-1 rounded-lg text-white/70 hover:text-white hover:bg-white/20 transition-all duration-200"
                         >
                             <X class="h-4 w-4" />
                         </button>

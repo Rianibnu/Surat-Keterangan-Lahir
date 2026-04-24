@@ -24,10 +24,10 @@ class SklSeeder extends Seeder
 
         $count = 0;
         foreach ($birthRecords as $index => $birthRecord) {
-            // Generate document number format: SKL/RM-RSUKM/XXXX/YYYY
+            // Generate document number format: SKL/RM-RSX/XXXX/YYYY
             $year = Carbon::now()->year;
             $sequence = str_pad($index + 1, 4, '0', STR_PAD_LEFT);
-            $documentNumber = "SKL/RM-RSUKM/{$sequence}/{$year}";
+            $documentNumber = "SKL/RM-RSX/{$sequence}/{$year}";
 
             Skl::firstOrCreate(
                 ['birth_record_id' => $birthRecord->id],

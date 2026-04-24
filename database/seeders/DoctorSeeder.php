@@ -16,31 +16,31 @@ class DoctorSeeder extends Seeder
             [
                 'name' => 'dr. Ahmad Rasyid, Sp.OG',
                 'license_no' => 'SIP-OG/2023/12345',
-                'hospital' => 'RS Unggul Karsa Medika',
+                'hospital' => 'Rumah Sakit X',
                 'signature_path' => null,
             ],
             [
                 'name' => 'dr. Budi Santoso, Sp.OG',
                 'license_no' => 'SIP-OG/2023/12346',
-                'hospital' => 'RS Unggul Karsa Medika',
+                'hospital' => 'Rumah Sakit X',
                 'signature_path' => null,
             ],
             [
                 'name' => 'dr. Citra Dewi, Sp.OG',
                 'license_no' => 'SIP-OG/2024/23456',
-                'hospital' => 'RS Unggul Karsa Medika',
+                'hospital' => 'Rumah Sakit X',
                 'signature_path' => null,
             ],
             [
                 'name' => 'dr. Diana Putri, Sp.OG',
                 'license_no' => 'SIP-OG/2024/23457',
-                'hospital' => 'RS Unggul Karsa Medika',
+                'hospital' => 'Rumah Sakit X',
                 'signature_path' => null,
             ],
             [
                 'name' => 'dr. Eko Prasetyo, Sp.OG(K)',
                 'license_no' => 'SIP-OG/2022/34567',
-                'hospital' => 'RS Unggul Karsa Medika',
+                'hospital' => 'Rumah Sakit X',
                 'signature_path' => null,
             ],
         ];

@@ -61,12 +61,12 @@ class DatabaseSeeder extends Seeder
         $this->command->table(
             ['Role', 'Email', 'Password'],
             [
-                ['Super Admin', 'superadmin@rsukm.com', 'password'],
+                ['Super Admin', 'superadmin@rsx.com', 'password'],
                 ['Super Admin', 'test@example.com', 'password'],
-                ['Admin', 'admin@rsukm.com', 'password'],
-                ['Bidan', 'bidan.siti@rsukm.com', 'password'],
-                ['Bidan', 'bidan.dewi@rsukm.com', 'password'],
-                ['Bidan', 'bidan.ratna@rsukm.com', 'password'],
+                ['Admin', 'admin@rsx.com', 'password'],
+                ['Bidan', 'bidan.siti@rsx.com', 'password'],
+                ['Bidan', 'bidan.dewi@rsx.com', 'password'],
+                ['Bidan', 'bidan.ratna@rsx.com', 'password'],
             ]
         );
     }

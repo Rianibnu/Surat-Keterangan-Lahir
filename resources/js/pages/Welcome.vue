@@ -73,7 +73,7 @@ const scrollToSection = (sectionId: string) => {
 </script>
 
 <template>
-    <Head title="SKL Desk - Sistem Kelahiran Digital RS Unggul Karsa Medika" />
+    <Head title="SKL Desk - Sistem Kelahiran Digital Rumah Sakit X" />
 
     <div class="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white antialiased">
         <!-- Navbar: Clean & Minimal -->
@@ -90,14 +90,14 @@ const scrollToSection = (sectionId: string) => {
                     <!-- Logo -->
                     <Link href="/" class="flex items-center gap-3 group">
                         <div class="relative">
-                            <div class="h-11 w-11 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/25 group-hover:shadow-indigo-500/40 group-hover:scale-105 transition-all duration-300">
+                            <div class="h-11 w-11 rounded-2xl bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/25 group-hover:shadow-indigo-500/40 group-hover:scale-105 transition-all duration-300">
                                 <Baby class="h-6 w-6 text-white" />
                             </div>
-                            <div class="absolute -inset-1 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-2xl opacity-0 group-hover:opacity-30 blur-lg transition-opacity duration-300"></div>
+                            <div class="absolute -inset-1 bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-2xl opacity-0 group-hover:opacity-30 blur-lg transition-opacity duration-300"></div>
                         </div>
                         <div class="hidden sm:block">
                             <span class="text-xl font-bold tracking-tight" :class="isNavScrolled ? 'text-slate-900 dark:text-white' : 'text-white'">
-                                SKL <span class="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">Desk</span>
+                                SKL <span class="bg-linear-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">Desk</span>
                             </span>
                         </div>
                     </Link>
@@ -134,7 +134,7 @@ const scrollToSection = (sectionId: string) => {
                     <div class="flex items-center gap-3">
                         <template v-if="$page.props.auth?.user">
                             <Link href="/dashboard">
-                                <button class="relative group rounded-full px-6 py-2.5 font-semibold text-sm transition-all duration-300 hover:scale-105 bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50">
+                                <button class="relative group rounded-full px-6 py-2.5 font-semibold text-sm transition-all duration-300 hover:scale-105 bg-linear-to-r from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50">
                                     <span class="relative z-10">Dashboard</span>
                                 </button>
                             </Link>
@@ -148,7 +148,7 @@ const scrollToSection = (sectionId: string) => {
                                         : 'bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white/20 hover:border-white/40'"
                                 >
                                     <!-- Gradient border glow on hover -->
-                                    <span class="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-indigo-500/20 group-hover:via-purple-500/20 group-hover:to-pink-500/20 transition-all duration-500"></span>
+                                    <span class="absolute inset-0 rounded-full bg-linear-to-r from-indigo-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-indigo-500/20 group-hover:via-purple-500/20 group-hover:to-pink-500/20 transition-all duration-500"></span>
                                     <span class="relative z-10 flex items-center gap-2">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
@@ -164,7 +164,7 @@ const scrollToSection = (sectionId: string) => {
         </nav>
 
         <!-- Hero Section: Dark Premium -->
-        <section id="home" class="relative min-h-[100vh] flex items-center pt-24 pb-40 overflow-hidden bg-gradient-to-b from-slate-900 via-slate-900 to-indigo-950">
+        <section id="home" class="relative min-h-screen flex items-center pt-24 pb-40 overflow-hidden bg-linear-to-b from-slate-900 via-slate-900 to-indigo-950">
             <!-- Background Elements -->
             <div class="absolute inset-0">
                 <!-- Gradient Orbs -->
@@ -173,7 +173,7 @@ const scrollToSection = (sectionId: string) => {
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-pink-600/10 rounded-full blur-[150px] animate-pulse-slow" style="animation-delay: 1s;"></div>
                 
                 <!-- Grid Pattern -->
-                <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
+                <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-size-[60px_60px] mask-[radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
             </div>
 
             <div class="container mx-auto px-4 md:px-8 relative z-10">
@@ -194,7 +194,7 @@ const scrollToSection = (sectionId: string) => {
                             <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
                                 <span class="text-white">Dokumen</span>
                                 <br />
-                                <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Lebih Hidup.</span>
+                                <span class="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Lebih Hidup.</span>
                             </h1>
                             <p class="text-lg sm:text-xl text-slate-400 max-w-lg mx-auto lg:mx-0 leading-relaxed">
                                 Revolusi digital layanan kelahiran dengan sistem validasi real-time dan keamanan data tingkat enterprise.
@@ -254,10 +254,10 @@ const scrollToSection = (sectionId: string) => {
                         <!-- Floating Elements -->
                         <div class="relative animate-float">
                             <!-- Main Card -->
-                            <div class="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl rounded-3xl p-8 border border-white/10 shadow-2xl">
+                            <div class="relative bg-linear-to-br from-white/10 to-white/5 backdrop-blur-2xl rounded-3xl p-8 border border-white/10 shadow-2xl">
                                 <!-- Header -->
                                 <div class="flex items-center gap-4 mb-6">
-                                    <div class="h-14 w-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                                    <div class="h-14 w-14 rounded-2xl bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
                                         <FileText class="h-7 w-7 text-white" />
                                     </div>
                                     <div>
@@ -295,11 +295,11 @@ const scrollToSection = (sectionId: string) => {
                             <div class="absolute -top-4 -right-4 md:-top-6 md:-right-8 z-20">
                                 <div class="relative group">
                                     <!-- Glow effect -->
-                                    <div class="absolute -inset-1 bg-gradient-to-r from-emerald-500/50 to-teal-500/50 rounded-2xl blur-lg opacity-0 group-hover:opacity-70 transition-opacity duration-500"></div>
+                                    <div class="absolute -inset-1 bg-linear-to-r from-emerald-500/50 to-teal-500/50 rounded-2xl blur-lg opacity-0 group-hover:opacity-70 transition-opacity duration-500"></div>
                                     <!-- Card -->
-                                    <div class="relative bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl border border-white/20 p-4 rounded-2xl shadow-2xl animate-float-card">
+                                    <div class="relative bg-linear-to-br from-white/15 to-white/5 backdrop-blur-xl border border-white/20 p-4 rounded-2xl shadow-2xl animate-float-card">
                                         <div class="flex items-center gap-3">
-                                            <div class="h-11 w-11 rounded-xl bg-gradient-to-br from-emerald-500/30 to-emerald-600/20 flex items-center justify-center ring-1 ring-emerald-500/30">
+                                            <div class="h-11 w-11 rounded-xl bg-linear-to-br from-emerald-500/30 to-emerald-600/20 flex items-center justify-center ring-1 ring-emerald-500/30">
                                                 <Activity class="w-5 h-5 text-emerald-400" />
                                             </div>
                                             <div>
@@ -312,7 +312,7 @@ const scrollToSection = (sectionId: string) => {
                                         </div>
                                         <!-- Mini progress bar -->
                                         <div class="mt-3 h-1 w-full bg-white/10 rounded-full overflow-hidden">
-                                            <div class="h-full w-3/4 bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full"></div>
+                                            <div class="h-full w-3/4 bg-linear-to-r from-emerald-500 to-teal-400 rounded-full"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -322,12 +322,12 @@ const scrollToSection = (sectionId: string) => {
                             <div class="absolute bottom-4 -right-4 md:bottom-8 md:-right-8 z-20" style="animation-delay: 1s;">
                                 <div class="relative group">
                                     <!-- Glow effect -->
-                                    <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500/50 to-purple-500/50 rounded-2xl blur-lg opacity-0 group-hover:opacity-70 transition-opacity duration-500"></div>
+                                    <div class="absolute -inset-1 bg-linear-to-r from-indigo-500/50 to-purple-500/50 rounded-2xl blur-lg opacity-0 group-hover:opacity-70 transition-opacity duration-500"></div>
                                     <!-- Card -->
-                                    <div class="relative bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl border border-white/20 p-4 rounded-2xl shadow-2xl animate-float-card">
+                                    <div class="relative bg-linear-to-br from-white/15 to-white/5 backdrop-blur-xl border border-white/20 p-4 rounded-2xl shadow-2xl animate-float-card">
                                         <div class="flex items-center gap-3">
                                             <div class="relative">
-                                                <div class="h-11 w-11 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-indigo-500/30">
+                                                <div class="h-11 w-11 rounded-full bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-indigo-500/30">
                                                     AI
                                                 </div>
                                                 <!-- Online indicator with pulse -->
@@ -366,7 +366,7 @@ const scrollToSection = (sectionId: string) => {
         </section>
 
         <!-- Stats Section - Solid Dark Premium -->
-        <section id="stats" class="relative z-20 bg-gradient-to-b from-indigo-950 to-slate-900 py-16 px-4 md:px-8">
+        <section id="stats" class="relative z-20 bg-linear-to-b from-indigo-950 to-slate-900 py-16 px-4 md:px-8">
             <!-- Background Gradient Orbs -->
             <div class="absolute top-0 left-1/4 w-[400px] h-[200px] bg-indigo-600/20 rounded-full blur-[100px] pointer-events-none"></div>
             <div class="absolute bottom-0 right-1/4 w-[300px] h-[200px] bg-purple-600/15 rounded-full blur-[80px] pointer-events-none"></div>
@@ -375,10 +375,10 @@ const scrollToSection = (sectionId: string) => {
                 <!-- Main Card with Solid Dark Background -->
                 <div class="relative bg-slate-900/80 backdrop-blur-xl rounded-3xl border border-slate-700/50 shadow-2xl shadow-black/40 p-8 md:p-12 overflow-hidden">
                     <!-- Animated Gradient Border Top -->
-                    <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 animate-gradient-shift"></div>
+                    <div class="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 animate-gradient-shift"></div>
                     
                     <!-- Inner Glow -->
-                    <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-purple-500/5 pointer-events-none"></div>
+                    <div class="absolute inset-0 bg-linear-to-br from-indigo-500/5 via-transparent to-purple-500/5 pointer-events-none"></div>
                     
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 relative z-10">
                         <!-- Stat 1 - Layanan 24/7 -->
@@ -438,7 +438,7 @@ const scrollToSection = (sectionId: string) => {
         <!-- Features Section -->
         <section id="features" class="py-24 md:py-32 bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
             <!-- Background Pattern -->
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(99,102,241,0.03)_1px,transparent_0)] [background-size:32px_32px]"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(99,102,241,0.03)_1px,transparent_0)] bg-size-[32px_32px]"></div>
 
             <div class="container mx-auto px-4 md:px-8 relative z-10">
                 <!-- Section Header -->
@@ -449,7 +449,7 @@ const scrollToSection = (sectionId: string) => {
                     </span>
                     <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-6 leading-tight">
                         Layanan Unggulan 
-                        <span class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Digital</span>
+                        <span class="bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Digital</span>
                     </h2>
                     <p class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed">
                         Transformasi digital untuk kenyamanan keluarga Anda. Satu sistem terintegrasi untuk masa depan.
@@ -463,7 +463,7 @@ const scrollToSection = (sectionId: string) => {
                         <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-50 dark:bg-indigo-900/10 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500"></div>
                         
                         <div class="relative">
-                            <div class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-600 text-white shadow-lg shadow-indigo-500/30 group-hover:scale-110 transition-transform duration-300">
+                            <div class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-indigo-500 to-blue-600 text-white shadow-lg shadow-indigo-500/30 group-hover:scale-110 transition-transform duration-300">
                                 <FileCheck class="h-7 w-7" />
                             </div>
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">SKL Digital Resmi</h3>
@@ -478,7 +478,7 @@ const scrollToSection = (sectionId: string) => {
                         <div class="absolute top-0 right-0 w-32 h-32 bg-purple-50 dark:bg-purple-900/10 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500"></div>
                         
                         <div class="relative">
-                            <div class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform duration-300">
+                            <div class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-purple-500 to-pink-600 text-white shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform duration-300">
                                 <QrCode class="h-7 w-7" />
                             </div>
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Verifikasi QR Code</h3>
@@ -493,7 +493,7 @@ const scrollToSection = (sectionId: string) => {
                         <div class="absolute top-0 right-0 w-32 h-32 bg-pink-50 dark:bg-pink-900/10 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500"></div>
                         
                         <div class="relative">
-                            <div class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 to-rose-600 text-white shadow-lg shadow-pink-500/30 group-hover:scale-110 transition-transform duration-300">
+                            <div class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-pink-500 to-rose-600 text-white shadow-lg shadow-pink-500/30 group-hover:scale-110 transition-transform duration-300">
                                 <Stethoscope class="h-7 w-7" />
                             </div>
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">Validasi Dokter</h3>
@@ -507,7 +507,7 @@ const scrollToSection = (sectionId: string) => {
         </section>
 
         <!-- Process Section -->
-        <section id="process" class="py-24 md:py-32 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white relative overflow-hidden">
+        <section id="process" class="py-24 md:py-32 bg-linear-to-br from-slate-900 via-indigo-950 to-slate-900 text-white relative overflow-hidden">
             <!-- Background Decorations -->
             <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-600/20 rounded-full blur-[150px]"></div>
             <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-600/15 rounded-full blur-[120px]"></div>
@@ -528,7 +528,7 @@ const scrollToSection = (sectionId: string) => {
                         <div class="space-y-6">
                             <!-- Step 1 -->
                             <div class="flex gap-5 group">
-                                <div class="flex-shrink-0 h-12 w-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-bold text-lg group-hover:bg-indigo-600 group-hover:border-indigo-500 transition-all duration-300">
+                                <div class="shrink-0 h-12 w-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-bold text-lg group-hover:bg-indigo-600 group-hover:border-indigo-500 transition-all duration-300">
                                     1
                                 </div>
                                 <div>
@@ -539,7 +539,7 @@ const scrollToSection = (sectionId: string) => {
                             
                             <!-- Step 2 -->
                             <div class="flex gap-5 group">
-                                <div class="flex-shrink-0 h-12 w-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-bold text-lg group-hover:bg-indigo-600 group-hover:border-indigo-500 transition-all duration-300">
+                                <div class="shrink-0 h-12 w-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-bold text-lg group-hover:bg-indigo-600 group-hover:border-indigo-500 transition-all duration-300">
                                     2
                                 </div>
                                 <div>
@@ -550,7 +550,7 @@ const scrollToSection = (sectionId: string) => {
                             
                             <!-- Step 3 -->
                             <div class="flex gap-5 group">
-                                <div class="flex-shrink-0 h-12 w-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-bold text-lg group-hover:bg-indigo-600 group-hover:border-indigo-500 transition-all duration-300">
+                                <div class="shrink-0 h-12 w-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center font-bold text-lg group-hover:bg-indigo-600 group-hover:border-indigo-500 transition-all duration-300">
                                     3
                                 </div>
                                 <div>
@@ -601,7 +601,7 @@ const scrollToSection = (sectionId: string) => {
 
         <!-- CTA Section -->
         <section class="py-24 relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 bg-[length:200%_100%] animate-gradient"></div>
+            <div class="absolute inset-0 bg-linear-to-r from-indigo-600 via-purple-600 to-indigo-600 bg-size-[200%_100%] animate-gradient"></div>
             <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PC9zdmc+')] opacity-50"></div>
 
             <div class="container mx-auto px-4 md:px-8 relative z-10 text-center">
@@ -631,7 +631,7 @@ const scrollToSection = (sectionId: string) => {
                     <!-- Brand -->
                     <div class="md:col-span-5 space-y-6">
                         <div class="flex items-center gap-3">
-                            <div class="h-11 w-11 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                            <div class="h-11 w-11 rounded-2xl bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
                                 <Baby class="h-6 w-6 text-white" />
                             </div>
                             <div>

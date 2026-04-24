@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('baby_name');
             $table->date('birth_date');
             $table->time('birth_time');
-            $table->string('hospital_name')->default('RS Unggul Karsa Medika');
+            $table->string('hospital_name')->default('Rumah Sakit X');
             $table->string('medical_record_no');
             $table->string('gender'); // L/P or Laki-laki/Perempuan
             $table->integer('child_order');

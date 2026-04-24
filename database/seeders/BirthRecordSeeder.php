@@ -16,7 +16,7 @@ class BirthRecordSeeder extends Seeder
     public function run(): void
     {
         $doctors = Doctor::all();
-        $bidan = User::role('bidan')->first() ?? User::first();
+        $bidans = User::role('bidan')->get();
 
         if ($doctors->isEmpty()) {
             $this->command->error('No doctors found. Please run DoctorSeeder first.');
@@ -28,7 +28,7 @@ class BirthRecordSeeder extends Seeder
                 'baby_name' => 'Baby Ahmad Fauzan',
                 'birth_date' => Carbon::now()->subDays(30),
                 'birth_time' => '08:30:00',
-                'hospital_name' => 'RS Unggul Karsa Medika',
+                'hospital_name' => 'Rumah Sakit X',
                 'medical_record_no' => 'RM-2026-0001',
                 'gender' => 'Laki-laki',
                 'child_order' => 1,
@@ -54,7 +54,7 @@ class BirthRecordSeeder extends Seeder
                 'baby_name' => 'Baby Putri Ayu Lestari',
                 'birth_date' => Carbon::now()->subDays(25),
                 'birth_time' => '14:15:00',
-                'hospital_name' => 'RS Unggul Karsa Medika',
+                'hospital_name' => 'Rumah Sakit X',
                 'medical_record_no' => 'RM-2026-0002',
                 'gender' => 'Perempuan',
                 'child_order' => 2,
@@ -80,7 +80,7 @@ class BirthRecordSeeder extends Seeder
                 'baby_name' => 'Baby Muhammad Rizky',
                 'birth_date' => Carbon::now()->subDays(20),
                 'birth_time' => '22:45:00',
-                'hospital_name' => 'RS Unggul Karsa Medika',
+                'hospital_name' => 'Rumah Sakit X',
                 'medical_record_no' => 'RM-2026-0003',
                 'gender' => 'Laki-laki',
                 'child_order' => 1,
@@ -106,7 +106,7 @@ class BirthRecordSeeder extends Seeder
                 'baby_name' => 'Baby Aisyah Zahra',
                 'birth_date' => Carbon::now()->subDays(15),
                 'birth_time' => '03:20:00',
-                'hospital_name' => 'RS Unggul Karsa Medika',
+                'hospital_name' => 'Rumah Sakit X',
                 'medical_record_no' => 'RM-2026-0004',
                 'gender' => 'Perempuan',
                 'child_order' => 3,
@@ -132,7 +132,7 @@ class BirthRecordSeeder extends Seeder
                 'baby_name' => 'Baby Kenji Pratama',
                 'birth_date' => Carbon::now()->subDays(10),
                 'birth_time' => '11:00:00',
-                'hospital_name' => 'RS Unggul Karsa Medika',
+                'hospital_name' => 'Rumah Sakit X',
                 'medical_record_no' => 'RM-2026-0005',
                 'gender' => 'Laki-laki',
                 'child_order' => 1,
@@ -158,7 +158,7 @@ class BirthRecordSeeder extends Seeder
                 'baby_name' => 'Baby Naila Safira',
                 'birth_date' => Carbon::now()->subDays(5),
                 'birth_time' => '16:30:00',
-                'hospital_name' => 'RS Unggul Karsa Medika',
+                'hospital_name' => 'Rumah Sakit X',
                 'medical_record_no' => 'RM-2026-0006',
                 'gender' => 'Perempuan',
                 'child_order' => 2,
@@ -184,7 +184,7 @@ class BirthRecordSeeder extends Seeder
                 'baby_name' => 'Baby Arjuna Putra',
                 'birth_date' => Carbon::now()->subDays(3),
                 'birth_time' => '09:15:00',
-                'hospital_name' => 'RS Unggul Karsa Medika',
+                'hospital_name' => 'Rumah Sakit X',
                 'medical_record_no' => 'RM-2026-0007',
                 'gender' => 'Laki-laki',
                 'child_order' => 1,
@@ -210,7 +210,7 @@ class BirthRecordSeeder extends Seeder
                 'baby_name' => 'Baby Cantika Maharani',
                 'birth_date' => Carbon::now()->subDays(1),
                 'birth_time' => '19:45:00',
-                'hospital_name' => 'RS Unggul Karsa Medika',
+                'hospital_name' => 'Rumah Sakit X',
                 'medical_record_no' => 'RM-2026-0008',
                 'gender' => 'Perempuan',
                 'child_order' => 1,
@@ -236,7 +236,7 @@ class BirthRecordSeeder extends Seeder
 
         foreach ($birthRecords as $index => $record) {
             $record['doctor_id'] = $doctors->random()->id;
-            $record['created_by_user_id'] = $bidan?->id;
+            $record['created_by_user_id'] = $bidans->isNotEmpty() ? $bidans->random()->id : User::first()?->id;
             
             BirthRecord::firstOrCreate(
                 ['medical_record_no' => $record['medical_record_no']],

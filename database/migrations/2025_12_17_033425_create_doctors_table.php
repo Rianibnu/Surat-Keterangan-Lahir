@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('license_no')->nullable();
-            $table->string('hospital')->default('RS Unggul Karsa Medika');
+            $table->string('hospital')->default('Rumah Sakit X');
             $table->timestamps();
         });
     }

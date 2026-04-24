@@ -98,7 +98,7 @@ const submit = () => {
                                     id="hospital" 
                                     v-model="form.hospital" 
                                     class="pl-9" 
-                                    placeholder="Contoh: RS Unggul Karsa Medika"
+                                    placeholder="Contoh: Rumah Sakit X"
                                     required
                                 />
                             </div>

@@ -41,7 +41,7 @@ Anda akan membutuhkan minimal 3 tabel utama:
 
 **1. Formulir Input Data Bayi dan Persalinan:**
 
-* **Data Surat:** Nomor SKL (terisi otomatis/manual), Tanggal/Hari/Jam, Tempat Lahir (RS Unggul Karsa Medika).
+* **Data Surat:** Nomor SKL (terisi otomatis/manual), Tanggal/Hari/Jam, Tempat Lahir (Rumah Sakit X).
 * **Data Bayi:** Nama, No. Rekam Medis, Jenis Kelamin, Anak Ke-, Cara Persalinan, Golongan Darah, Berat (gram), Panjang (cm), Lingkar Kepala (cm), Lingkar Dada (cm).
 * *Catatan:* Gunakan validasi data (misal: berat/panjang harus angka, jenis kelamin *dropdown*).
 

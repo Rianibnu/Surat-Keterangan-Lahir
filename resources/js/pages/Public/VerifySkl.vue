@@ -37,7 +37,7 @@ const print = () => {
                 </div>
                 <div>
                     <h2 class="font-bold text-lg">Dokumen Valid & Terverifikasi</h2>
-                    <p class="text-green-100 text-sm">Surat Keterangan Lahir ini resmi terdaftar di database RS Unggul Karsa Medika.</p>
+                    <p class="text-green-100 text-sm">Surat Keterangan Lahir ini resmi terdaftar di database Rumah Sakit X.</p>
                 </div>
             </div>
         </div>
@@ -92,7 +92,7 @@ const print = () => {
                             </div>
                         </div>
                         <div class="mt-1">
-                            Telah lahir seorang bayi di RS Unggul Karsa Medika | <span class="italic">Has been born a baby at Unggul Karsa Medika Hospital</span>
+                            Telah lahir seorang bayi di Rumah Sakit X | <span class="italic">Has been born a baby at Rumah Sakit X</span>
                         </div>
                     </div>
 
@@ -287,7 +287,7 @@ const print = () => {
             </div>
             
             <div class="text-center mt-8 text-slate-400 text-xs">
-                &copy; {{ new Date().getFullYear() }} RS Unggul Karsa Medika. All rights reserved.
+                &copy; {{ new Date().getFullYear() }} Rumah Sakit X. All rights reserved.
             </div>
             </div>
         </div>

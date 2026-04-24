@@ -51,7 +51,7 @@ const goBack = () => {
     <Head title="Cetak SKL" />
     
     <!-- Screen View (Non-Print) -->
-    <div class="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 print:hidden">
+    <div class="min-h-screen bg-linear-to-br from-slate-100 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 print:hidden">
         <!-- Floating Toolbar -->
         <div class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-b border-gray-200 dark:border-gray-700">
             <div class="max-w-[210mm] mx-auto px-4 py-3 flex items-center justify-between">
@@ -68,7 +68,7 @@ const goBack = () => {
                     method="post"
                     as="button"
                     :onSuccess="() => router.reload()"
-                    class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background h-10 px-4 py-2 gap-2 border-indigo-200 text-indigo-700 hover:bg-indigo-50"
+                    class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border bg-background h-10 px-4 py-2 gap-2 border-indigo-200 text-indigo-700 hover:bg-indigo-50"
                 >
                     <FileText class="h-4 w-4" />
                     Terbitkan SKL
@@ -79,7 +79,7 @@ const goBack = () => {
                     <a 
                         v-if="record.skl && can('skl.download-pdf')"
                         :href="`/birth-records/${record.id}/skl/download`"
-                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background h-10 px-4 py-2 gap-2 border-emerald-200 text-emerald-700 hover:bg-emerald-50"
+                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border bg-background h-10 px-4 py-2 gap-2 border-emerald-200 text-emerald-700 hover:bg-emerald-50"
                     >
                         <Download class="h-4 w-4" />
                         Download PDF
@@ -88,7 +88,7 @@ const goBack = () => {
                     <Button 
                         v-if="can('skl.print')"
                         @click="print" 
-                        class="gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:shadow-xl"
+                        class="gap-2 bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:shadow-xl"
                     >
                         <Printer class="h-4 w-4" />
                         Cetak SKL
@@ -145,7 +145,7 @@ const goBack = () => {
                             </div>
                         </div>
                         <div class="mt-1">
-                            Telah lahir seorang bayi di RS Unggul Karsa Medika | <span class="italic">Has been born a baby at Unggul Karsa Medika Hospital</span>
+                            Telah lahir seorang bayi di Rumah Sakit X | <span class="italic">Has been born a baby at Rumah Sakit X</span>
                         </div>
                     </div>
 
@@ -373,7 +373,7 @@ const goBack = () => {
                 </div>
             </div>
             <div class="mt-1">
-                Telah lahir seorang bayi di RS Unggul Karsa Medika | <span class="italic">Has been born a baby at Unggul Karsa Medika Hospital</span>
+                Telah lahir seorang bayi di Rumah Sakit X | <span class="italic">Has been born a baby at Rumah Sakit X</span>
             </div>
         </div>
 
