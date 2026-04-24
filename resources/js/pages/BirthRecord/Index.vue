@@ -166,13 +166,13 @@ const getGenderBadge = (gender: string) => {
                         <table class="w-full">
                             <thead>
                                 <tr class="bg-gray-50 dark:bg-gray-800/80 border-b dark:border-gray-700">
-                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">No</th>
-                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Nama Bayi</th>
-                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Jenis Kelamin</th>
-                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Tanggal Lahir</th>
-                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Nama Ibu</th>
-                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">No. SKL</th>
-                                    <th class="px-6 py-4 text-center text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Aksi</th>
+                                    <th class="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider hidden sm:table-cell">No</th>
+                                    <th class="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Nama Bayi</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider hidden md:table-cell">Jenis Kelamin</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider hidden lg:table-cell">Tanggal Lahir</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider hidden md:table-cell">Nama Ibu</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider hidden sm:table-cell">No. SKL</th>
+                                    <th class="px-3 sm:px-6 py-3 sm:py-4 text-center text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
@@ -181,64 +181,64 @@ const getGenderBadge = (gender: string) => {
                                     :key="record.id" 
                                     class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors duration-150"
                                 >
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap hidden sm:table-cell">
                                         <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300">
                                             {{ index + 1 }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-3 sm:px-6 py-3 sm:py-4 min-w-0 whitespace-normal sm:whitespace-nowrap w-full sm:w-auto">
                                         <div class="flex items-center gap-3">
-                                            <div class="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white font-bold text-sm">
+                                            <div class="shrink-0 h-10 w-10 rounded-full bg-linear-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white font-bold text-sm">
                                                 {{ record.baby_name.charAt(0).toUpperCase() }}
                                             </div>
                                             <div>
-                                                <p class="font-semibold text-gray-900 dark:text-white">{{ record.baby_name }}</p>
-                                                <p class="text-xs text-gray-500 dark:text-gray-400">MR: {{ record.medical_record_no }}</p>
+                                                <p class="font-semibold text-gray-900 dark:text-white line-clamp-2 sm:line-clamp-none">{{ record.baby_name }}</p>
+                                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">MR: {{ record.medical_record_no }}</p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap hidden md:table-cell">
                                         <span :class="['inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium', getGenderBadge(record.gender)]">
                                             {{ record.gender }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap hidden lg:table-cell">
                                         <div class="flex items-center gap-2 text-gray-600 dark:text-gray-300">
                                             <Calendar class="h-4 w-4 text-gray-400" />
                                             {{ formatDate(record.birth_date) }}
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-gray-700 dark:text-gray-300">
+                                    <td class="px-6 py-4 whitespace-nowrap text-gray-700 dark:text-gray-300 hidden md:table-cell">
                                         {{ record.mother_name }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
                                         <code class="px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 text-xs font-mono text-gray-700 dark:text-gray-300">
                                             {{ record.skl?.document_number || '-' }}
                                         </code>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center justify-center gap-2">
+                                    <td class="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap">
+                                        <div class="flex items-center justify-center gap-1 sm:gap-2">
                                             <Link :href="`/birth-records/${record.id}`">
-                                                <Button variant="ghost" size="sm" class="gap-1.5 text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50 dark:hover:bg-indigo-950">
+                                                <Button variant="ghost" size="sm" class="gap-1.5 text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50 dark:hover:bg-indigo-950 px-2 sm:px-3">
                                                     <Eye class="h-4 w-4" />
-                                                    Lihat
+                                                    <span class="hidden sm:inline">Lihat</span>
                                                 </Button>
                                             </Link>
                                             <Link v-if="can('birth-records.edit')" :href="`/birth-records/${record.id}/edit`">
-                                                <Button variant="ghost" size="sm" class="gap-1.5 text-blue-600 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-950">
+                                                <Button variant="ghost" size="sm" class="gap-1.5 text-blue-600 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-950 px-2 sm:px-3">
                                                     <Pencil class="h-4 w-4" />
-                                                    Edit
+                                                    <span class="hidden sm:inline">Edit</span>
                                                 </Button>
                                             </Link>
                                             <Button 
                                                 v-if="can('birth-records.delete')"
                                                 variant="ghost" 
                                                 size="sm" 
-                                                class="gap-1.5 text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950"
+                                                class="gap-1.5 text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950 px-2 sm:px-3"
                                                 @click="deleteRecord(record.id)"
                                             >
                                                 <Trash2 class="h-4 w-4" />
-                                                Hapus
+                                                <span class="hidden sm:inline">Hapus</span>
                                             </Button>
                                         </div>
                                     </td>
